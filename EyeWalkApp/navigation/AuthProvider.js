@@ -1,9 +1,9 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { login, logout } from "../firebase/firebaseFunctions";
-import { useState } from "react";
 export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [contacts, setContacts] = useState([]);
   return (
     <AuthContext.Provider
       value={{
@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
         setUser,
         login: login,
         logout: logout,
+        contacts,
+        setContacts,
       }}
     >
       {children}

@@ -69,15 +69,11 @@ const onSignIn = (googleUser) => {
 };
 
 function setProfile(result) {
-  //   db.ref("users/" + result.user.uid).set({
-  //     uid: result.user.uid,
-  //     profilePic: result.user.photoURL,
-  //     displayName: result.user.displayName,
-  //   });
   db.collection("users").doc(result.user.uid).set({
     uid: result.user.uid,
     profilePic: result.user.photoURL,
     displayName: result.user.displayName,
+    email: result.user.email,
   });
 }
 

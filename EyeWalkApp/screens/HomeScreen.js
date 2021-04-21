@@ -1,34 +1,86 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../navigation/AuthProvider";
 import styles from "../styles.js";
-import { Text, View, Button, Image, SafeAreaView } from "react-native";
+import { Text, View, Button, Image, SafeAreaView, Alert } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ContactBar from "../components/ContactBar";
 
 export default function HomeScreen() {
   const { user, logout, contacts } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [profilePic, setProfilePic] = useState(null);
-  const [displayedContacts, setDisplayedContacts] = useState([]);
 
   useEffect(() => {
     setUserName(user.displayName);
     setProfilePic(user.photoURL);
   }, []); //ComponentDidMount
 
-  //update dispalyed contacts when changes in contact list
-  useEffect(() => {
-    setDisplayedContacts(
-      contacts.map((contact) => (
-        <Text key={contact.id}> {contact.contactName} </Text>
-      ))
+  const logoutConfirmation = () =>
+    Alert.alert("Confirm Logout", "Are You Sure You Want To Log Out?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "Yes", onPress: logout },
+    ]);
+
+  const emailConfirmation = () =>
+    Alert.alert(
+      "Confirm Email Notification",
+      "Are You Sure You Want To Send An Email?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Yes", onPress: handleEmail },
+      ]
     );
-  }, [contacts]);
+
+  function handleEmail() {
+    for (let contact of contacts) {
+      console.log("Will send email to " + contact.email);
+    }
+  }
+
+  const smsConfirmation = () =>
+    Alert.alert(
+      "Confirm Email Notification",
+      "Are You Sure You Want To Send An Email?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Yes", onPress: handleSMS },
+      ]
+    );
+
+  function handleSMS() {
+    for (let contact of contacts) {
+      console.log("Will send message to " + contact.phone);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text>Welcome {userName}</Text>
       <Image style={styles.profileImage} source={{ uri: profilePic }} />
-      {displayedContacts}
-      <Button onPress={logout} title="Log Out" />
+
+      <TouchableOpacity onPress={emailConfirmation} style={styles.button}>
+        <Text>Send Email To Contacts</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={smsConfirmation} style={styles.button}>
+        <Text>Send SMS To Contacts</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={logoutConfirmation} style={styles.button}>
+        <Text>Log Out</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

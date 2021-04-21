@@ -32,7 +32,7 @@ export default function NavigationStack() {
         .doc(user.uid)
         .collection("contacts")
         .onSnapshot((querySnapshot) => {
-          //if there are no contacts
+          //if there are no contacts, make it an empty array
           if (querySnapshot.empty) {
             console.log("The user has no contacts!");
             setContacts([]);
@@ -45,7 +45,7 @@ export default function NavigationStack() {
               // console.log(doc.data());
               // console.log(doc.id);
               let newContact = {};
-              newContact[id] = doc.id;
+              newContact["id"] = doc.id;
               newContact["contactName"] = doc.data().contactName;
               newContact["email"] = doc.data().email;
               newContact["phone"] = doc.data().phone;

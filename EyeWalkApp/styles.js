@@ -4,6 +4,8 @@ import { Dimensions } from "react-native";
 //global styling variables
 var scrollheight;
 
+//TODO: Make dynamic styling using windowWidth, windowHeight!
+
 if (Platform.OS === "ios") {
   scrollheight = "100%";
 } else {
@@ -24,11 +26,12 @@ export default StyleSheet.create({
     backgroundColor: "#b3d0ff",
     padding: 20,
     borderRadius: 20,
+    margin: 15,
   },
 
   profileImage: {
-    height: 250,
-    width: 250,
+    height: windowWidth / 6,
+    width: windowWidth / 6,
   },
 
   spacedRow: {

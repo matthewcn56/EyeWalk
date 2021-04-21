@@ -5,12 +5,18 @@ import { db } from "../firebase/firebaseFunctions";
 import { AuthContext } from "../navigation/AuthProvider";
 import { useContext } from "react/cjs/react.development";
 
-export default function AddContactScreen() {
+export default function AddContactScreen(props) {
   const { user } = useContext(AuthContext);
   const [nameToAdd, setNameToAdd] = useState("");
   const [emailToAdd, setEmailToAdd] = useState("");
   const [phoneToAdd, setPhoneToAdd] = useState("");
 
+  function verifyContact() {
+    //check for valid input
+    if (!nameToAdd || (!emailToAdd && !phoneToAdd)) {
+      alert("A contact must have a name and either a phone number or email!");
+    } else AddContactConfirmation();
+  }
   const AddContactConfirmation = () =>
     Alert.alert(
       "Confirm Contact Addition",
@@ -21,7 +27,7 @@ export default function AddContactScreen() {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "OK", onPress: attemptToAddContact },
+        { text: "Yes", onPress: attemptToAddContact },
       ]
     );
   function attemptToAddContact() {
@@ -35,6 +41,7 @@ export default function AddContactScreen() {
         phone: phoneToAdd,
       })
       .then(() => {
+        props.navigation.navigate("UserProfile");
         alert("Successfully added " + nameToAdd + " to your contacts!");
       })
       .catch((error) => {
@@ -80,7 +87,7 @@ export default function AddContactScreen() {
         />
       </View>
 
-      <TouchableOpacity onPress={AddContactConfirmation} style={styles.button}>
+      <TouchableOpacity onPress={verifyContact} style={styles.button}>
         <Text>Add Contact To Your List</Text>
       </TouchableOpacity>
     </View>

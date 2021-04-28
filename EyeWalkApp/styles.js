@@ -51,4 +51,8 @@ export default StyleSheet.create({
   inputPrompt: {
     width: "30%",
   },
+  map: {
+    height: (windowHeight * 3) / 4,
+    width: windowWidth,
+  },
 });

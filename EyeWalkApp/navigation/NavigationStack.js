@@ -62,6 +62,17 @@ export default function NavigationStack() {
     };
   }, [user]);
 
+  //handle user profile preferences changing when they're logged in
+  // useEffect( ()=> {
+  //   let unsubscribeFromPreferenceChanges;
+  //   if(user){
+  //     unsubscribeFromPreferenceChanges = db.collection("users")
+  //     .doc(user.uid)
+
+  //     })
+  //   }
+  // }, [user]);
+
   if (loading) {
     return <ActivityIndicator />;
   }

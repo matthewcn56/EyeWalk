@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
-import ExtraScreen from "../screens/ExtraScreen";
+import MapScreen from "../screens/MapScreen";
 import ProfileStack from "./ProfileStack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -11,8 +11,8 @@ export default function HomeStack() {
   return (
     <Tab.Navigator initialRouteName="Home">
       <Tab.Screen
-        name="Extra"
-        component={ExtraScreen}
+        name="Map"
+        component={MapScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons

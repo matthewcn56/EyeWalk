@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles.js";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Heatmap } from "react-native-maps";
 import Entypo from "react-native-vector-icons/Entypo";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
 
 export default function MapScreen() {
+  const [displayLights, setDisplayLights] = useState(true);
+  const [displayCrime, setDisplayCrime] = useState(true);
+
+  //map from database
   const lights = lightData.map((marker, index) => (
     <Marker
       key={index}
@@ -17,6 +21,7 @@ export default function MapScreen() {
     </Marker>
   ));
 
+  //map from database
   const crimes = crimeData.map((marker, index) => (
     <Marker
       key={index}
@@ -39,10 +44,33 @@ export default function MapScreen() {
           provider={PROVIDER_GOOGLE}
           initialRegion={regionConfig}
         >
-          {lights}
-          {crimes}
           {usersLoc}
+          {/* Conditionally render information */}
+          {/* {displayLights && lights} */}
+          {displayLights && (
+            <Heatmap
+              points={lightMap}
+              radius={150}
+              opacity={0.5}
+              gradient={lightGradientConfig}
+            />
+          )}
+          {displayCrime && crimes}
         </MapView>
+      </View>
+      <View style={styles.spacedRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setDisplayLights((prevLights) => !prevLights)}
+        >
+          <Text>{displayLights ? `Hide` : `Show`} Lighting</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setDisplayCrime((prevCrime) => !prevCrime)}
+        >
+          <Text>{displayCrime ? `Hide` : `Show`} Crime</Text>
+        </TouchableOpacity>
       </View>
       <Text>Our Map Screen</Text>
     </SafeAreaView>
@@ -63,7 +91,7 @@ const lightData = [
       longitude: -118.45,
     },
     title: "Unsafe Intersection",
-    description: "No Light Fixings!",
+    description: "Low Visibility!",
   },
   {
     latLng: {
@@ -73,26 +101,108 @@ const lightData = [
     title: "Unsafe Intersection",
     description: "No Light Fixings!",
   },
+  {
+    latLng: {
+      latitude: 34.061,
+      longitude: -118.45,
+    },
+    title: "Unsafe Intersection",
+    description: "No Light Fixings!",
+  },
+  {
+    latLng: {
+      latitude: 34.073,
+      longitude: -118.44,
+    },
+    title: "Unsafe Intersection",
+    description: "No Light Fixings!",
+  },
+];
+
+const lightMap = [
+  {
+    latitude: 34.069,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.068,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.066,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.069,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.068,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.066,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.069,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.068,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.066,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.066,
+    longitude: -118.447,
+  },
+  {
+    latitude: 34.065,
+    longitude: -118.445,
+  },
+  {
+    latitude: 34.065,
+    longitude: -118.446,
+  },
+  {
+    latitude: 34.065,
+    longitude: -118.446,
+  },
+  {
+    latitude: 34.065,
+    longitude: -118.446,
+  },
 ];
 
 const crimeData = [
   {
     latLng: {
-      latitude: 34.067,
-      longitude: -118.43,
+      latitude: 34.069,
+      longitude: -118.45,
     },
-    title: "Unsafe Intersection",
-    description: "High Crime Rating in Past 24 hrs!",
+    title: "Crime History",
+    description: "Pauley Pavillion",
   },
+
   {
     latLng: {
       latitude: 34.067,
-      longitude: -118.47,
+      longitude: -118.442,
     },
-    title: "Unsafe Intersection",
-    description: "Crime History!",
+    title: "Crime History",
+    description: "Anderson Street!",
   },
 ];
+
+const lightGradientConfig = {
+  colors: ["transparent", "yellow", "red"],
+  startPoints: [0.0, 0.1, 0.6],
+  colorMapSize: 256,
+};
 
 const userGeoData = {
   latLng: {

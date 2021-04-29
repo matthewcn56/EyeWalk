@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../navigation/AuthProvider";
 import styles from "../styles.js";
-import { Text, View, Button, Image, SafeAreaView, Alert } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  Text,
+  View,
+  Button,
+  Image,
+  SafeAreaView,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import ContactBar from "../components/ContactBar";
 
 export default function HomeScreen() {

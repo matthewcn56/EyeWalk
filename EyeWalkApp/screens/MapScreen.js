@@ -4,6 +4,7 @@ import MapView, { PROVIDER_GOOGLE, Marker, Heatmap } from "react-native-maps";
 import Entypo from "react-native-vector-icons/Entypo";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
+import {sheetLightData} from "../components/mapData";
 
 export default function MapScreen() {
   const [displayLights, setDisplayLights] = useState(true);
@@ -49,10 +50,11 @@ export default function MapScreen() {
           {/* {displayLights && lights} */}
           {displayLights && (
             <Heatmap
-              points={lightMap}
-              radius={150}
+              points={sheetLightData}
+              radius={75}
               opacity={0.5}
               gradient={lightGradientConfig}
+              onPress= {() =>console.log("pressed")}
             />
           )}
           {displayCrime && crimes}
@@ -119,64 +121,6 @@ const lightData = [
   },
 ];
 
-const lightMap = [
-  {
-    latitude: 34.069,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.068,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.066,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.069,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.068,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.066,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.069,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.068,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.066,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.066,
-    longitude: -118.447,
-  },
-  {
-    latitude: 34.065,
-    longitude: -118.445,
-  },
-  {
-    latitude: 34.065,
-    longitude: -118.446,
-  },
-  {
-    latitude: 34.065,
-    longitude: -118.446,
-  },
-  {
-    latitude: 34.065,
-    longitude: -118.446,
-  },
-];
 
 const crimeData = [
   {
@@ -200,7 +144,7 @@ const crimeData = [
 
 const lightGradientConfig = {
   colors: ["transparent", "yellow", "red"],
-  startPoints: [0.0, 0.1, 0.6],
+  startPoints: [0.0, 0.003, 0.6],
   colorMapSize: 256,
 };
 

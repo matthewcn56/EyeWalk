@@ -29,6 +29,22 @@ export default StyleSheet.create({
     margin: 15,
   },
 
+  reportButton: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ff6161",
+    padding: 20,
+    width: "100%",
+    height: "100%",
+  },
+
+  reportButtonText: {
+    color: "#000000",
+  },
+
   profileImage: {
     height: windowWidth / 6,
     width: windowWidth / 6,
@@ -37,8 +53,7 @@ export default StyleSheet.create({
   spacedRow: {
     display: "flex",
     flexDirection: "row",
-    marginTop: windowHeight / 60,
-    marginBottom: windowHeight / 60,
+    justifyContent: "center",
   },
 
   input: {
@@ -52,7 +67,7 @@ export default StyleSheet.create({
     width: "30%",
   },
   map: {
-    height: (windowHeight * 3) / 4,
+    height: (windowHeight * 65) / 100,
     width: windowWidth,
   },
 });

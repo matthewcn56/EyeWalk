@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "../styles.js";
 import MapView, { PROVIDER_GOOGLE, Marker, Heatmap } from "react-native-maps";
 import Entypo from "react-native-vector-icons/Entypo";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
-import {sheetLightData} from "../components/mapData";
+import { sheetLightData } from "../components/mapData";
+import ProfilePreferencesScreen from "./ProfilePreferencesScreen.js";
+import { LocationContext } from "../navigation/LocationContext";
 
-export default function MapScreen() {
+export default function MapScreen(props) {
   const [displayLights, setDisplayLights] = useState(true);
   const [displayCrime, setDisplayCrime] = useState(true);
+  const { usersLocation } = useContext(LocationContext);
 
   //map from database
   const lights = lightData.map((marker, index) => (
@@ -35,11 +38,20 @@ export default function MapScreen() {
   ));
 
   const usersLoc = (
-    <Marker coordinate={userGeoData.latLng} title="Current Location" />
+    <Marker coordinate={usersLocation.latLng} title="Current Location" />
   );
   return (
     <SafeAreaView style={styles.container}>
       <View>
+        <View style={styles.spacedRow}>
+          <TouchableOpacity
+            style={styles.reportButton}
+            onPress={() => props.navigation.navigate("Report")}
+          >
+            <Text style={styles.reportButtonText}>Report Something!</Text>
+            <Entypo name="warning" size={40} color="#fada39" />
+          </TouchableOpacity>
+        </View>
         <MapView
           style={styles.map}
           provider={PROVIDER_GOOGLE}
@@ -54,7 +66,7 @@ export default function MapScreen() {
               radius={75}
               opacity={0.5}
               gradient={lightGradientConfig}
-              onPress= {() =>console.log("pressed")}
+              onPress={() => console.log("pressed")}
             />
           )}
           {displayCrime && crimes}
@@ -74,7 +86,6 @@ export default function MapScreen() {
           <Text>{displayCrime ? `Hide` : `Show`} Crime</Text>
         </TouchableOpacity>
       </View>
-      <Text>Our Map Screen</Text>
     </SafeAreaView>
   );
 }
@@ -121,7 +132,6 @@ const lightData = [
   },
 ];
 
-
 const crimeData = [
   {
     latLng: {
@@ -144,13 +154,6 @@ const crimeData = [
 
 const lightGradientConfig = {
   colors: ["transparent", "yellow", "red"],
-  startPoints: [0.0, 0.003, 0.6],
+  startPoints: [0.0, 0.003, 0.2],
   colorMapSize: 256,
-};
-
-const userGeoData = {
-  latLng: {
-    latitude: 34.0689,
-    longitude: -118.4452,
-  },
 };

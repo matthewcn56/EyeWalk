@@ -38,6 +38,15 @@ export default function UserProfileScreen(props) {
 
       <Text>Contacts</Text>
       {displayedContacts}
+
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("ProfilePreferences");
+        }}
+        style={styles.button}
+      >
+        <Text>Set Profile Preferences</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

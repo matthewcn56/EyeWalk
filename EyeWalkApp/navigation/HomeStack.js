@@ -1,10 +1,11 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
-import MapScreen from "../screens/MapScreen";
+import MapStack from "./MapStack";
 import ProfileStack from "./ProfileStack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Entypo from "react-native-vector-icons/Entypo";
 
 export default function HomeStack() {
   const Tab = createMaterialBottomTabNavigator();
@@ -12,14 +13,10 @@ export default function HomeStack() {
     <Tab.Navigator initialRouteName="Home">
       <Tab.Screen
         name="Map"
-        component={MapScreen}
+        component={MapStack}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="file-question"
-              color={color}
-              size={26}
-            />
+            <Entypo name="map" color={color} size={26} />
           ),
         }}
       />

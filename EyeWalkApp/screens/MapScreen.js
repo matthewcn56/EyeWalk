@@ -61,37 +61,43 @@ export default function MapScreen(props) {
   function attemptReport() {
     //TODO: Change to Aggregate!
     //check if user already attempted report
-    let reportRef = db
-      .collection("hazardReports")
-      .where("uid", "==", user.uid)
+    let reportRef = db.collection("hazardReports").where("uid", "==", user.uid);
+    reportRef.where("longitude", "==", usersLocation.latLng.longitude);
+    //compound query of just where
+    reportRef
+      .where("latitude", "==", usersLocation.latLng.latitude)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           //check to see if latitude and longitude is the same
-          if (
-            doc.longitude === usersLocation.latLng.longitude &&
-            doc.latitude === usersLocation.latLng.latitude
-          ) {
-            alert("You have already reported at this location!");
-            return;
-          }
-        });
-      });
 
-    //add new report if user hasn't attempted report yet
-    db.collection("hazardReports")
-      .add({
-        uid: user.uid,
-        longitude: usersLocation.latLng.longitude,
-        latitude: usersLocation.latLng.latitude,
+          console.log("found duplicate location");
+          //throw error if found duplicate
+          throw new Error("Duplicate Report");
+        });
       })
-      .then((docRef) => {
-        console.log("Added Document with ID: " + docRef.id);
-        alert("Successfully reported hazard at this location!");
-      })
-      .catch((error) => {
-        alert("Error In Reporting, Try Again!");
-      });
+      .then(
+        () => {
+          //add new report if user hasn't attempted report yet
+          db.collection("hazardReports")
+            .add({
+              uid: user.uid,
+              longitude: usersLocation.latLng.longitude,
+              latitude: usersLocation.latLng.latitude,
+            })
+            .then((docRef) => {
+              console.log("Added Document with ID: " + docRef.id);
+              alert("Successfully reported hazard at this location!");
+            })
+            .catch((error) => {
+              alert("Error In Reporting, Try Again!");
+            });
+        },
+        () => {
+          //if user already attempted report, don't write to database
+          alert("Already reported hazard at this location!");
+        }
+      );
   }
 
   return (

@@ -3,17 +3,25 @@ import styles from "../styles.js";
 import MapView, { PROVIDER_GOOGLE, Marker, Heatmap } from "react-native-maps";
 import Entypo from "react-native-vector-icons/Entypo";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
+import {
+  SafeAreaView,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { sheetLightData } from "../components/mapData";
-import ProfilePreferencesScreen from "./ProfilePreferencesScreen.js";
+import { db } from "../firebase/firebaseFunctions";
 import { LocationContext } from "../navigation/LocationContext";
+import { AuthContext } from "../navigation/AuthProvider";
 
 export default function MapScreen(props) {
   const [displayLights, setDisplayLights] = useState(true);
   const [displayCrime, setDisplayCrime] = useState(true);
   const { usersLocation } = useContext(LocationContext);
+  const { user } = useContext(AuthContext);
 
-  //map from database
+  //map from api call
   const lights = lightData.map((marker, index) => (
     <Marker
       key={index}
@@ -25,7 +33,7 @@ export default function MapScreen(props) {
     </Marker>
   ));
 
-  //map from database
+  //map from API Data
   const crimes = crimeData.map((marker, index) => (
     <Marker
       key={index}
@@ -40,13 +48,59 @@ export default function MapScreen(props) {
   const usersLoc = (
     <Marker coordinate={usersLocation.latLng} title="Current Location" />
   );
+
+  const AddReportConfirmation = () =>
+    Alert.alert("Confirm Hazard Report", " Report a Hazard At This Location?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "Yes", onPress: attemptReport },
+    ]);
+  function attemptReport() {
+    //TODO: Change to Aggregate!
+    //check if user already attempted report
+    let reportRef = db
+      .collection("hazardReports")
+      .where("uid", "==", user.uid)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          //check to see if latitude and longitude is the same
+          if (
+            doc.longitude === usersLocation.latLng.longitude &&
+            doc.latitude === usersLocation.latLng.latitude
+          ) {
+            alert("You have already reported at this location!");
+            return;
+          }
+        });
+      });
+
+    //add new report if user hasn't attempted report yet
+    db.collection("hazardReports")
+      .add({
+        uid: user.uid,
+        longitude: usersLocation.latLng.longitude,
+        latitude: usersLocation.latLng.latitude,
+      })
+      .then((docRef) => {
+        console.log("Added Document with ID: " + docRef.id);
+        alert("Successfully reported hazard at this location!");
+      })
+      .catch((error) => {
+        alert("Error In Reporting, Try Again!");
+      });
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <View style={styles.spacedRow}>
           <TouchableOpacity
             style={styles.reportButton}
-            onPress={() => props.navigation.navigate("Report")}
+            onPress={AddReportConfirmation}
           >
             <Text style={styles.reportButtonText}>Report Something!</Text>
             <Entypo name="warning" size={40} color="#fada39" />

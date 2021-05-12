@@ -1,5 +1,6 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useContext } from "react";
 export const LocationContext = createContext({});
+import { AuthContext } from "./AuthProvider";
 
 //TODO: Add in GeoListening Once Data is Added
 

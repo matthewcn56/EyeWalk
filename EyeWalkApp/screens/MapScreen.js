@@ -14,6 +14,7 @@ import { sheetLightData } from "../components/mapData";
 import { db } from "../firebase/firebaseFunctions";
 import { LocationContext } from "../navigation/LocationContext";
 import { AuthContext } from "../navigation/AuthProvider";
+import firebase from "firebase";
 
 export default function MapScreen(props) {
   const [displayLights, setDisplayLights] = useState(true);
@@ -63,7 +64,7 @@ export default function MapScreen(props) {
     //check if user already attempted report
     let reportRef = db.collection("hazardReports").where("uid", "==", user.uid);
     reportRef.where("longitude", "==", usersLocation.latLng.longitude);
-    //compound query of just where
+    //compound query of just where location is the same
     reportRef
       .where("latitude", "==", usersLocation.latLng.latitude)
       .get()
@@ -92,6 +93,55 @@ export default function MapScreen(props) {
             .catch((error) => {
               alert("Error In Reporting, Try Again!");
             });
+
+          //TODO: Make this a server-side thing, not client-side
+
+          //TODO: Empty out Hazard Reviews Collection Every Day!
+
+          //add new report to aggregate
+          const usersRoundedLat = usersLocation.latLng.latitude.toFixed(3);
+          const usersRoundedLng = usersLocation.latLng.longitude.toFixed(3);
+
+          //check for equal to rounded lat and lng
+          let hazardRef = db
+            .collection("aggregatedHazards")
+            .where("roundedLatitude", "==", usersRoundedLat);
+          hazardRef.where("roundedLongitude", "==", usersRoundedLng);
+
+          //check the query
+          hazardRef
+            .get()
+            .then(
+              //simply update tally if doc is found
+              (querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                  console.log("incrementing report case here!");
+                  const docRef = db.collection("aggregatedHazards").doc(doc.id);
+                  docRef.update({
+                    count: firebase.firestore.FieldValue.increment(1),
+                  });
+                  console.log("successfully added report case");
+                  throw new Error("Tallied!");
+                });
+              }
+            )
+            .then(
+              //make new document if no aggregate there yet
+              () => {
+                db.collection("aggregatedHazards")
+                  .add({
+                    roundedLatitude: usersRoundedLat,
+                    roundedLongitude: usersRoundedLng,
+                    count: 1,
+                  })
+                  .then((docRef) => {
+                    console.log("Added new aggregate report!");
+                  });
+              },
+              () => {
+                console.log("Already tallied");
+              }
+            );
         },
         () => {
           //if user already attempted report, don't write to database

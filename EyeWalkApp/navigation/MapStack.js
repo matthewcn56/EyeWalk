@@ -8,7 +8,7 @@ export default function ProfileStack() {
   const Stack = createStackNavigator();
   return (
     <LocationProvider>
-      <Stack.Navigator initialRouteName="UserProfile">
+      <Stack.Navigator initialRouteName="Map">
         <Stack.Screen
           name="Map"
           component={MapScreen}

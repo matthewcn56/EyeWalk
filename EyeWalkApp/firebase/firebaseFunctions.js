@@ -35,7 +35,7 @@ const onSignIn = (googleUser) => {
       // Build Firebase credential with the Google ID token.
 
       const credential = firebase.auth.GoogleAuthProvider.credential(
-        googleUser.idToken, //Changed from original, check 3:00 of tutorial
+        googleUser.idToken,
         googleUser.accessToken
       );
 
@@ -68,12 +68,30 @@ const onSignIn = (googleUser) => {
   });
 };
 
-function setProfile(result) {
+export async function anonymousLogin() {
+  firebase
+    .auth()
+    .signInAnonymously()
+    .then((result) => {
+      console.log("Anonymously signed in!");
+      if (result.additionalUserInfo.isNewUser) {
+        setAnonymousProfile(result);
+      }
+    })
+    .catch(function (error) {
+      // Handle Errors here.
+      console.log("error signing in");
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+}
+
+function setAnonymousProfile(result) {
   db.collection("users").doc(result.user.uid).set({
     uid: result.user.uid,
-    profilePic: result.user.photoURL,
-    displayName: result.user.displayName,
-    email: result.user.email,
+    profilePic: "https://static.thenounproject.com/png/538846-200.png",
+    displayName: "Anonymous User",
+    email: "N/A",
   });
 }
 
@@ -95,6 +113,15 @@ export async function login() {
   } catch (e) {
     console.log("error");
   }
+}
+
+function setProfile(result) {
+  db.collection("users").doc(result.user.uid).set({
+    uid: result.user.uid,
+    profilePic: result.user.photoURL,
+    displayName: result.user.displayName,
+    email: result.user.email,
+  });
 }
 
 export async function logout() {

@@ -5,7 +5,7 @@ import { AuthContext } from "../navigation/AuthProvider";
 import ContactBar from "../components/ContactBar";
 
 export default function UserProfileScreen(props) {
-  const { user, logout, contacts } = useContext(AuthContext);
+  const { user, logout, contacts, isAnonymous } = useContext(AuthContext);
   const [displayedContacts, setDisplayedContacts] = useState([]);
   //update displayed contacts when changes in contact list
   useEffect(() => {
@@ -24,13 +24,17 @@ export default function UserProfileScreen(props) {
     );
   }, [contacts]);
 
+  //attempt to navigate
+  function attemptToNavigateAddContact() {
+    if (!isAnonymous) {
+      props.navigation.navigate("AddContact");
+    } else alert("You must not be an anonymous user to add contacts!");
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Text>User Profile Screen</Text>
       <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate("AddContact");
-        }}
+        onPress={attemptToNavigateAddContact}
         style={styles.button}
       >
         <Text>Add An Emergency Contact</Text>

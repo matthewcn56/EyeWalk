@@ -13,10 +13,23 @@ export default function NavigationStack() {
   const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  //handle user state changes
+  //handle user state changes for regular sign-in
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(function (user) {
-      setUser(user);
+      //set user to null if not signed in
+      if (!user) setUser(user);
+      //set user's info to info stored inside database if signed in
+      else {
+        const userRef = db.collection("users").doc(user.uid);
+        userRef.get().then((doc) => {
+          if (doc.exists) {
+            setUser(doc.data());
+          } else {
+            console.log("No user data");
+          }
+        });
+      }
+
       if (initializing) setInitializing(false);
       setLoading(false);
     });

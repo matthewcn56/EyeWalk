@@ -13,13 +13,13 @@ import {
 import ContactBar from "../components/ContactBar";
 
 export default function HomeScreen() {
-  const { user, logout, contacts } = useContext(AuthContext);
+  const { user, logout, contacts, isAnonymous } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [profilePic, setProfilePic] = useState(null);
 
   useEffect(() => {
     setUserName(user.displayName);
-    setProfilePic(user.photoURL);
+    setProfilePic(user.profilePic);
   }, []); //ComponentDidMount
 
   const logoutConfirmation = () =>
@@ -71,6 +71,8 @@ export default function HomeScreen() {
       console.log("Will send message to " + contact.phone);
     }
   }
+
+  function attemptLogout() {}
 
   return (
     <SafeAreaView style={styles.container}>

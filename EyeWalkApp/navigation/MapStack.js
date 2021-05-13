@@ -14,8 +14,8 @@ export default function MapWrapper() {
   );
 }
 
-function MapStack() {
-  const { hazardsList, setHazardsList } = useContext(LocationContext);
+function MapStack(props) {
+  const { setHazardsList } = useContext(LocationContext);
 
   //handle hazards list changes
   useEffect(() => {
@@ -37,14 +37,19 @@ function MapStack() {
             let newHazard = {};
             newHazard["count"] = doc.data().count;
             newHazard["latLng"] = {
-              latitude: doc.data().roundedLatitude,
-              longitude: doc.data().roundedLongitude,
+              latitude: Number(doc.data().roundedLatitude),
+              longitude: Number(doc.data().roundedLongitude),
             };
             newHazards.push(newHazard);
           });
           setHazardsList(newHazards);
         }
       });
+
+    //cleanup effects
+    return () => {
+      if (unsubscribeFromHazardsChanges) unsubscribeFromHazardsChanges();
+    };
   }, []);
 
   const Stack = createStackNavigator();

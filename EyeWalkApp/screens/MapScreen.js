@@ -19,7 +19,7 @@ import firebase from "firebase";
 export default function MapScreen(props) {
   const [displayLights, setDisplayLights] = useState(true);
   const [displayCrime, setDisplayCrime] = useState(true);
-  const { usersLocation } = useContext(LocationContext);
+  const { usersLocation, hazardsList } = useContext(LocationContext);
   const { user } = useContext(AuthContext);
 
   //map from api call
@@ -29,6 +29,19 @@ export default function MapScreen(props) {
       coordinate={marker.latLng}
       title={marker.title}
       description={marker.description}
+    >
+      <Entypo name="warning" size={40} color="#fada39" />
+    </Marker>
+  ));
+
+  //map from database
+
+  const displayedHazards = hazardsList.map((marker, index) => (
+    <Marker
+      key={index}
+      coordinate={marker.latLng}
+      title="Reported Hazard!"
+      description={marker.count + " reports"}
     >
       <Entypo name="warning" size={40} color="#fada39" />
     </Marker>
@@ -168,6 +181,7 @@ export default function MapScreen(props) {
           initialRegion={regionConfig}
         >
           {usersLoc}
+          {displayedHazards}
           {/* Conditionally render information */}
           {/* {displayLights && lights} */}
           {displayLights && (

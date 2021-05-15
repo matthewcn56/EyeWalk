@@ -33,18 +33,20 @@ export default function HomeScreen() {
     ]);
 
   const emailConfirmation = () =>
-    Alert.alert(
-      "Confirm Email Notification",
-      "Are You Sure You Want To Send An Email?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "Yes", onPress: handleEmail },
-      ]
-    );
+    isAnonymous
+      ? alert("You cannot be an anonymous user and use this feature!")
+      : Alert.alert(
+          "Confirm Email Notification",
+          "Are You Sure You Want To Send An Email?",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            { text: "Yes", onPress: handleEmail },
+          ]
+        );
 
   function handleEmail() {
     for (let contact of contacts) {
@@ -53,18 +55,20 @@ export default function HomeScreen() {
   }
 
   const smsConfirmation = () =>
-    Alert.alert(
-      "Confirm Email Notification",
-      "Are You Sure You Want To Send An Email?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "Yes", onPress: handleSMS },
-      ]
-    );
+    isAnonymous
+      ? alert("You cannot be an anonymous user and use this feature!")
+      : Alert.alert(
+          "Confirm Email Notification",
+          "Are You Sure You Want To Send An Email?",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            { text: "Yes", onPress: handleSMS },
+          ]
+        );
 
   function handleSMS() {
     for (let contact of contacts) {

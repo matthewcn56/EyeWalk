@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import styles from "../styles.js";
 import MapView, { PROVIDER_GOOGLE, Marker, Heatmap } from "react-native-maps";
 import Entypo from "react-native-vector-icons/Entypo";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   SafeAreaView,
@@ -9,18 +10,30 @@ import {
   View,
   TouchableOpacity,
   Alert,
+  Modal,
+  Switch,
 } from "react-native";
 import { sheetLightData } from "../components/mapData";
 import { db } from "../firebase/firebaseFunctions";
 import { LocationContext } from "../navigation/LocationContext";
 import { AuthContext } from "../navigation/AuthProvider";
 import firebase from "firebase";
+import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 
 export default function MapScreen(props) {
   const [displayLights, setDisplayLights] = useState(true);
   const [displayCrime, setDisplayCrime] = useState(true);
   const { usersLocation, hazardsList } = useContext(LocationContext);
+  const [displayHazards, setDisplayHazards] = useState(true);
   const { user } = useContext(AuthContext);
+  const [displayConfig, setDisplayConfig] = useState(false);
+
+  //switch constants
+  const TRACK_FALSE_COLOR = "#767577";
+  const TRACK_TRUE_COLOR = "#81b0ff";
+  const THUMB_TRUE_COLOR = "#f5dd4b";
+  const THUMB_FALSE_COLOR = "#f4f3f4";
+  const BACKGROUND_SWITCH_COLOR = "#3e3e3e";
 
   //map from api call
   const lights = lightData.map((marker, index) => (
@@ -165,6 +178,62 @@ export default function MapScreen(props) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Conditional Modal Config Window */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={displayConfig}
+        onRequestClose={() => {
+          Alert.alert("Closed Config Window.");
+          setDisplayConfig((prevConfig) => !prevConfig);
+        }}
+      >
+        <View style={styles.configWindow}>
+          <View style={styles.exitButton}>
+            <TouchableOpacity
+              onPress={() => setDisplayConfig((prevVal) => !prevVal)}
+            >
+              <Entypo
+                name="cross"
+                size={40}
+                color="black"
+                style={styles.exitButton}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.spacedRow}>
+            <Text style={styles.configText}>Display Streetlights</Text>
+            <Switch
+              trackColor={{ false: TRACK_FALSE_COLOR, true: TRACK_TRUE_COLOR }} //default colors btw
+              thumbColor={displayLights ? THUMB_TRUE_COLOR : THUMB_FALSE_COLOR}
+              ios_backgroundColor={BACKGROUND_SWITCH_COLOR}
+              onValueChange={() => setDisplayLights((prevVal) => !prevVal)}
+              value={displayLights}
+            />
+          </View>
+          <View style={styles.spacedRow}>
+            <Text style={styles.configText}>Display Crime</Text>
+            <Switch
+              trackColor={{ false: TRACK_FALSE_COLOR, true: TRACK_TRUE_COLOR }} //default colors btw
+              thumbColor={displayCrime ? THUMB_TRUE_COLOR : THUMB_FALSE_COLOR}
+              ios_backgroundColor={BACKGROUND_SWITCH_COLOR}
+              onValueChange={() => setDisplayCrime((prevVal) => !prevVal)}
+              value={displayCrime}
+            />
+          </View>
+          <View style={styles.spacedRow}>
+            <Text style={styles.configText}>Display User-Reported Hazards</Text>
+            <Switch
+              trackColor={{ false: TRACK_FALSE_COLOR, true: TRACK_TRUE_COLOR }} //default colors btw
+              thumbColor={displayHazards ? THUMB_TRUE_COLOR : THUMB_FALSE_COLOR}
+              ios_backgroundColor={BACKGROUND_SWITCH_COLOR}
+              onValueChange={() => setDisplayHazards((prevVal) => !prevVal)}
+              value={displayHazards}
+            />
+          </View>
+        </View>
+      </Modal>
       <View>
         <View style={styles.spacedRow}>
           <TouchableOpacity
@@ -181,8 +250,8 @@ export default function MapScreen(props) {
           initialRegion={regionConfig}
         >
           {usersLoc}
-          {displayedHazards}
           {/* Conditionally render information */}
+          {displayHazards && displayedHazards}
           {/* {displayLights && lights} */}
           {displayLights && (
             <Heatmap
@@ -195,21 +264,23 @@ export default function MapScreen(props) {
           )}
           {displayCrime && crimes}
         </MapView>
-      </View>
-      <View style={styles.spacedRow}>
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => setDisplayLights((prevLights) => !prevLights)}
+          style={styles.configButton}
+          onPress={() => setDisplayConfig((prevVal) => !prevVal)}
         >
-          <Text>{displayLights ? `Hide` : `Show`} Lighting</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => setDisplayCrime((prevCrime) => !prevCrime)}
-        >
-          <Text>{displayCrime ? `Hide` : `Show`} Crime</Text>
+          <FontAwesome name="gear" size={60} color="black" />
         </TouchableOpacity>
       </View>
+
+      {/* <View style={styles.spacedRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setDisplayConfig((prevVal) => !prevVal)}
+        >
+          <Text>Display Map Config Window</Text>
+        </TouchableOpacity>
+        
+      </View> */}
     </SafeAreaView>
   );
 }

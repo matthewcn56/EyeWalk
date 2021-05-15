@@ -67,7 +67,29 @@ export default StyleSheet.create({
     width: "30%",
   },
   map: {
-    height: (windowHeight * 65) / 100,
-    width: windowWidth,
+    display: "flex",
+    //height: (windowHeight * 65) / 100,
+    height: "100%",
+    // width: windowWidth,
   },
+  configWindow: {
+    display: "flex",
+    marginTop: windowHeight / 2,
+    marginLeft: windowWidth / 4,
+    borderRadius: 20,
+    padding: windowWidth / 40,
+    backgroundColor: "white",
+    flexDirection: "column",
+    alignContent: "flex-end",
+  },
+  configButton: {
+    position: "absolute",
+    right: windowWidth / 25,
+    bottom: windowHeight / 5,
+  },
+  exitButton: {
+    textAlign: "right",
+  },
+
+  configText: {},
 });

@@ -9,7 +9,7 @@ export { db };
 console.log("Firebase set up!");
 
 const isUserEqual = (googleUser, firebaseUser) => {
-  if (firebaseUser) {
+  if (googleUser.getBasicProfile && firebaseUser) {
     var providerData = firebaseUser.providerData;
     for (var i = 0; i < providerData.length; i++) {
       if (

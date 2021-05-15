@@ -8,22 +8,33 @@ export const AuthProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
   function googleSignIn() {
     setIsAnonymous(false);
-    console.log("Not anonymous!");
+    console.log("Attempting google signin!");
     login();
   }
 
   function handleSignOut() {
     //delete anonymous profile information if anonymous
+    //TODO: MAKE CLOUD FUNCTION THAT DELETES USER AS WELL IF ANONYMOUS
     if (isAnonymous) {
       db.collection("users")
         .doc(user.uid)
         .delete()
-        .then(() => {
-          console.log("Successfully deleted anonymous user profile!");
-        });
+        .then(
+          () => {
+            console.log("Successfully deleted anonymous user profile!");
+          },
+          () => {
+            console.log("Error deleting anonymous profile.");
+          }
+        );
     }
     setIsAnonymous(true);
     logout();
+  }
+
+  function doAnonymousLogin() {
+    setIsAnonymous(true);
+    anonymousLogin();
   }
   return (
     <AuthContext.Provider
@@ -34,7 +45,7 @@ export const AuthProvider = ({ children }) => {
         setIsAnonymous,
         login: googleSignIn,
         logout: handleSignOut,
-        anonymousLogin: anonymousLogin,
+        anonymousLogin: doAnonymousLogin,
         contacts,
         setContacts,
       }}

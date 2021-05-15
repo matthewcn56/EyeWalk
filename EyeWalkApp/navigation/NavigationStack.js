@@ -9,7 +9,8 @@ import { ActivityIndicator } from "react-native";
 import firebase from "firebase";
 
 export default function NavigationStack() {
-  const { user, setUser, setContacts } = useContext(AuthContext);
+  const { user, setUser, setContacts, setIsAnonymous } =
+    useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -21,13 +22,20 @@ export default function NavigationStack() {
       //set user's info to info stored inside database if signed in
       else {
         const userRef = db.collection("users").doc(user.uid);
-        userRef.get().then((doc) => {
-          if (doc.exists) {
-            setUser(doc.data());
-          } else {
-            console.log("No user data");
-          }
-        });
+        userRef
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setUser(doc.data());
+            } else {
+              console.log("No user data");
+            }
+          })
+          .then(() => {
+            setIsAnonymous(
+              user.displayName === "Anonymous User" ? true : false
+            );
+          });
       }
 
       if (initializing) setInitializing(false);

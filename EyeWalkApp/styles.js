@@ -54,6 +54,8 @@ export default StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
 
   input: {
@@ -72,20 +74,40 @@ export default StyleSheet.create({
     height: "100%",
     // width: windowWidth,
   },
-  configWindow: {
+
+  modalWindow: {
     display: "flex",
-    marginTop: windowHeight / 2,
-    marginLeft: windowWidth / 4,
     borderRadius: 20,
     padding: windowWidth / 40,
     backgroundColor: "white",
     flexDirection: "column",
-    alignContent: "flex-end",
+    alignContent: "space-between",
+    alignItems: "flex-end",
+    textAlign: "left",
   },
+
+  configWindow: {
+    position: "absolute",
+    bottom: windowHeight / 6,
+    right: 0,
+  },
+
+  mapLegendWindow: {
+    position: "absolute",
+    left: 0,
+    top: windowHeight / 4,
+  },
+
   configButton: {
     position: "absolute",
     right: windowWidth / 25,
     bottom: windowHeight / 5,
+  },
+
+  mapLegendButton: {
+    position: "absolute",
+    left: windowWidth / 50,
+    top: windowHeight / 8,
   },
   exitButton: {
     textAlign: "right",

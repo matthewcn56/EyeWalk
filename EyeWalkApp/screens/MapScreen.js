@@ -27,6 +27,7 @@ export default function MapScreen(props) {
   const [displayHazards, setDisplayHazards] = useState(true);
   const { user } = useContext(AuthContext);
   const [displayConfig, setDisplayConfig] = useState(false);
+  const [displayLegend, setDisplayLegend] = useState(false);
 
   //switch constants
   const TRACK_FALSE_COLOR = "#767577";
@@ -188,7 +189,7 @@ export default function MapScreen(props) {
           setDisplayConfig((prevConfig) => !prevConfig);
         }}
       >
-        <View style={styles.configWindow}>
+        <View style={[styles.modalWindow, styles.configWindow]}>
           <View style={styles.exitButton}>
             <TouchableOpacity
               onPress={() => setDisplayConfig((prevVal) => !prevVal)}
@@ -203,7 +204,7 @@ export default function MapScreen(props) {
           </View>
 
           <View style={styles.spacedRow}>
-            <Text style={styles.configText}>Display Streetlights</Text>
+            <Text style={styles.configText}>Show Streetlights</Text>
             <Switch
               trackColor={{ false: TRACK_FALSE_COLOR, true: TRACK_TRUE_COLOR }} //default colors btw
               thumbColor={displayLights ? THUMB_TRUE_COLOR : THUMB_FALSE_COLOR}
@@ -213,7 +214,7 @@ export default function MapScreen(props) {
             />
           </View>
           <View style={styles.spacedRow}>
-            <Text style={styles.configText}>Display Crime</Text>
+            <Text style={styles.configText}>Show Crime</Text>
             <Switch
               trackColor={{ false: TRACK_FALSE_COLOR, true: TRACK_TRUE_COLOR }} //default colors btw
               thumbColor={displayCrime ? THUMB_TRUE_COLOR : THUMB_FALSE_COLOR}
@@ -223,7 +224,7 @@ export default function MapScreen(props) {
             />
           </View>
           <View style={styles.spacedRow}>
-            <Text style={styles.configText}>Display User-Reported Hazards</Text>
+            <Text style={styles.configText}>Show Hazards</Text>
             <Switch
               trackColor={{ false: TRACK_FALSE_COLOR, true: TRACK_TRUE_COLOR }} //default colors btw
               thumbColor={displayHazards ? THUMB_TRUE_COLOR : THUMB_FALSE_COLOR}
@@ -234,6 +235,46 @@ export default function MapScreen(props) {
           </View>
         </View>
       </Modal>
+
+      {/* Conditional Legend Modal Window */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={displayLegend}
+        onRequestClose={() => {
+          Alert.alert("Closed Config Window.");
+          setDisplayLegend((prevVal) => !prevVal);
+        }}
+      >
+        <View style={[styles.modalWindow, styles.mapLegendWindow]}>
+          <View style={styles.exitButton}>
+            <TouchableOpacity
+              onPress={() => setDisplayLegend((prevVal) => !prevVal)}
+            >
+              <Entypo
+                name="cross"
+                size={40}
+                color="black"
+                style={styles.exitButton}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.spacedRow}>
+            <Text style={styles.configText}>Streetlights</Text>
+            <MaterialCommunityIcons name="circle" size={40} color="yellow" />
+          </View>
+          <View style={styles.spacedRow}>
+            <Text style={styles.configText}>Crime Data</Text>
+            <MaterialCommunityIcons name="handcuffs" size={40} />
+          </View>
+          <View style={styles.spacedRow}>
+            <Text style={styles.configText}>Reported Hazards</Text>
+            <Entypo name="warning" size={40} color="#fada39" />
+          </View>
+        </View>
+      </Modal>
+
       <View>
         <View style={styles.spacedRow}>
           <TouchableOpacity
@@ -268,7 +309,14 @@ export default function MapScreen(props) {
           style={styles.configButton}
           onPress={() => setDisplayConfig((prevVal) => !prevVal)}
         >
-          <FontAwesome name="gear" size={60} color="black" />
+          <FontAwesome name="gear" size={40} color="black" />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.mapLegendButton}
+          onPress={() => setDisplayLegend((prevVal) => !prevVal)}
+        >
+          <FontAwesome name="question-circle" size={40} color="black" />
         </TouchableOpacity>
       </View>
 

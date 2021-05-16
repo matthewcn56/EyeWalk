@@ -14,11 +14,11 @@ import {
   Switch,
 } from "react-native";
 import { sheetLightData } from "../components/mapData";
+import { crimeData } from "../components/mapData";
 import { db } from "../firebase/firebaseFunctions";
 import { LocationContext } from "../navigation/LocationContext";
 import { AuthContext } from "../navigation/AuthProvider";
 import firebase from "firebase";
-import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 
 export default function MapScreen(props) {
   const [displayLights, setDisplayLights] = useState(true);
@@ -62,12 +62,15 @@ export default function MapScreen(props) {
   ));
 
   //map from API Data
-  const crimes = crimeData.map((marker, index) => (
+  const crimes = crimeData.slice(1, 100).map((entry, index) => (
     <Marker
       key={index}
-      coordinate={marker.latLng}
-      title={marker.title}
-      description={marker.description}
+      coordinate={{
+        latitude: entry.latitude,
+        longitude: entry.longitude,
+      }}
+      title={entry["Crm Cd Desc"].replace(/\s\s+/g, " ")}
+      description={entry["LOCATION"].replace(/\s\s+/g, " ")}
     >
       <MaterialCommunityIcons name="handcuffs" size={40} />
     </Marker>
@@ -375,25 +378,25 @@ const lightData = [
   },
 ];
 
-const crimeData = [
-  {
-    latLng: {
-      latitude: 34.069,
-      longitude: -118.45,
-    },
-    title: "Crime History",
-    description: "Pauley Pavillion",
-  },
+// const crimeData = [
+//   {
+//     latLng: {
+//       latitude: 34.069,
+//       longitude: -118.45,
+//     },
+//     title: "Crime History",
+//     description: "Pauley Pavillion",
+//   },
 
-  {
-    latLng: {
-      latitude: 34.067,
-      longitude: -118.442,
-    },
-    title: "Crime History",
-    description: "Anderson Street!",
-  },
-];
+//   {
+//     latLng: {
+//       latitude: 34.067,
+//       longitude: -118.442,
+//     },
+//     title: "Crime History",
+//     description: "Anderson Street!",
+//   },
+// ];
 
 const lightGradientConfig = {
   colors: ["transparent", "yellow", "red"],

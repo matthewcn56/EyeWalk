@@ -3,6 +3,9 @@ import { Dimensions } from "react-native";
 
 //global styling variables
 var scrollheight;
+const themedBlue = "#0D5371";
+"
+
 
 //TODO: Make dynamic styling using windowWidth, windowHeight!
 

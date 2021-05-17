@@ -12,6 +12,7 @@ import {
   Alert,
   Modal,
   Switch,
+  Platform,
 } from "react-native";
 import { sheetLightData } from "../components/mapData";
 import { crimeData } from "../components/mapData";
@@ -300,7 +301,7 @@ export default function MapScreen(props) {
           {displayLights && (
             <Heatmap
               points={sheetLightData}
-              radius={75}
+              radius={Platform.OS === "android" ? 30 : 75}
               opacity={0.5}
               gradient={lightGradientConfig}
               onPress={() => console.log("pressed")}
@@ -319,7 +320,7 @@ export default function MapScreen(props) {
           style={styles.mapLegendButton}
           onPress={() => setDisplayLegend((prevVal) => !prevVal)}
         >
-          <FontAwesome name="question-circle" size={40} color="black" />
+          <FontAwesome name="question-circle" size={40} color="#0D5371" />
         </TouchableOpacity>
       </View>
 
@@ -398,8 +399,15 @@ const lightData = [
 //   },
 // ];
 
-const lightGradientConfig = {
-  colors: ["transparent", "yellow", "red"],
-  startPoints: [0.0, 0.003, 0.2],
-  colorMapSize: 256,
-};
+const lightGradientConfig =
+  Platform.OS === "ios"
+    ? {
+        colors: ["transparent", "yellow", "red"],
+        startPoints: [0.0, 0.003, 0.2],
+        colorMapSize: 256,
+      }
+    : {
+        colors: ["transparent", "yellow", "red"],
+        startPoints: [0.0, 0.005, 0.2],
+        colorMapSize: 256,
+      };

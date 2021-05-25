@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Alert,
+  Image,
 } from "react-native";
 import { AuthContext } from "../navigation/AuthProvider.js";
 
@@ -25,12 +26,21 @@ export default function LoginScreen() {
         { text: "Yes", onPress: anonymousLogin },
       ]
     );
+  //Everything you need to edit is inside the bottom return statement for front-end work!
   return (
     <SafeAreaView style={styles.container}>
+      <Image
+        style={styles.iconLogo}
+        source={require("../assets/eyeWalkLogo.png")}
+      />
+      {/* Add in a style into your text here! Here's an example*/}
+      {/* <Text style = {styles.yourStyle}></Text> */}
+      <Text>EyeWalk</Text>
       <TouchableOpacity onPress={() => login()} style={styles.button}>
         <Text>Sign In or Register With Google</Text>
       </TouchableOpacity>
 
+      {/* TouchableOpacity is our version of a button, you can change its style as well */}
       <TouchableOpacity
         onPress={anonymousLoginConfirmation}
         style={styles.button}

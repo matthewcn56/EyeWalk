@@ -4,8 +4,6 @@ import { Dimensions } from "react-native";
 //global styling variables
 var scrollheight;
 const themedBlue = "#0D5371";
-"
-
 
 //TODO: Make dynamic styling using windowWidth, windowHeight!
 
@@ -20,9 +18,15 @@ const windowHeight = Dimensions.get("window").height;
 
 export default StyleSheet.create({
   container: {
+    display: "flex",
+    justifyContent: "center",
     backgroundColor: "#fff",
     alignItems: "center",
     height: windowHeight,
+  },
+  iconLogo: {
+    height: (5 * windowWidth) / 6,
+    width: (5 * windowWidth) / 8,
   },
   button: {
     alignItems: "center",

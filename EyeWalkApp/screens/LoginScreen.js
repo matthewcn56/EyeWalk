@@ -35,9 +35,9 @@ export default function LoginScreen() {
       />
       {/* Add in a style into your text here! Here's an example*/}
       {/* <Text style = {styles.yourStyle}></Text> */}
-      <Text>EyeWalk</Text>
+      <Text style = {{fontSize: 36}}>EyeWalk</Text>
       <TouchableOpacity onPress={() => login()} style={styles.button}>
-        <Text>Sign In or Register With Google</Text>
+        <Text style = {{color: '#ffffff', fontFamily: 'Times New Roman'}}>Sign In or Register With Google</Text>
       </TouchableOpacity>
 
       {/* TouchableOpacity is our version of a button, you can change its style as well */}
@@ -45,7 +45,7 @@ export default function LoginScreen() {
         onPress={anonymousLoginConfirmation}
         style={styles.button}
       >
-        <Text>Sign In Anonymously</Text>
+        <Text style = {{color: '#ffffff'}}>Sign In Anonymously</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

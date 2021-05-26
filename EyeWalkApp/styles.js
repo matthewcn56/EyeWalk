@@ -24,16 +24,27 @@ export default StyleSheet.create({
     alignItems: "center",
     height: windowHeight,
   },
-  iconLogo: {
-    height: (5 * windowWidth) / 6,
-    width: (5 * windowWidth) / 8,
+  signInText : {
+    fontSize: 35,
+    fontWeight: "bold",
+    color: "yellow"
   },
+
   button: {
     alignItems: "center",
-    backgroundColor: "#b3d0ff",
+    width: '67%',
+    backgroundColor: "#0D5371",
     padding: 20,
     borderRadius: 20,
-    margin: 15,
+    margin: 10,
+  },
+
+  rectangle:{
+    height: 300, 
+    width: 500,
+    backgroundColor: '#0D5371',
+    top: '-10%',
+    
   },
 
   reportButton: {
@@ -53,8 +64,15 @@ export default StyleSheet.create({
   },
 
   profileImage: {
-    height: windowWidth / 6,
-    width: windowWidth / 6,
+    height: windowWidth / 4,
+    width: windowWidth / 4,
+    top: '-2%'
+  },
+
+  profileScreenImage:{
+    height: windowWidth / 3,
+    width: windowWidth / 3,
+    top: '-20%'
   },
 
   spacedRow: {

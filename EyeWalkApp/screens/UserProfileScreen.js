@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles.js";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, Text, TouchableOpacity, View, Image} from "react-native";
 import { AuthContext } from "../navigation/AuthProvider";
 import ContactBar from "../components/ContactBar";
 
 export default function UserProfileScreen(props) {
   const { user, logout, contacts, isAnonymous } = useContext(AuthContext);
   const [displayedContacts, setDisplayedContacts] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [profilePic, setProfilePic] = useState(null);
+
+  useEffect(() => {
+    setUserName(user.displayName);
+    setProfilePic(user.profilePic);
+  }, []); //ComponentDidMount
+
   //update displayed contacts when changes in contact list
   useEffect(() => {
     setDisplayedContacts(
@@ -32,12 +40,19 @@ export default function UserProfileScreen(props) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <Text>User Profile Screen</Text>
+      {/* this text is not showing */}
+    
+      <View style = {styles.rectangle}></View>
+      <Image style={styles.profileScreenImage} source={{ uri: profilePic }} />
+      <Text style = {{color: '#ffffff', top: '-53%', fontSize: 35}}>Profile</Text>
+      <Text style = {{color: '#0D5371', top: '-25%', fontSize: 30}}>{userName}</Text>
+      
+      <Text style = {{top: '-20%'}}>User Profile Screen</Text>
       <TouchableOpacity
         onPress={attemptToNavigateAddContact}
         style={styles.button}
       >
-        <Text>Add An Emergency Contact</Text>
+        <Text style = {{color: '#ffffff'}}>Add An Emergency Contact</Text>
       </TouchableOpacity>
 
       <Text>Contacts</Text>
@@ -49,7 +64,7 @@ export default function UserProfileScreen(props) {
         }}
         style={styles.button}
       >
-        <Text>Set Profile Preferences</Text>
+        <Text style = {{color: '#ffffff'}}>Set Profile Preferences</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

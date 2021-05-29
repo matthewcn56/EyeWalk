@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Alert,
+  Image,
 } from "react-native";
 import { AuthContext } from "../navigation/AuthProvider.js";
 

@@ -4,8 +4,6 @@ import { Dimensions } from "react-native";
 //global styling variables
 var scrollheight;
 const themedBlue = "#0D5371";
-"
-
 
 //TODO: Make dynamic styling using windowWidth, windowHeight!
 
@@ -32,7 +30,7 @@ export default StyleSheet.create({
     margin: 15,
   },
 
-  reportButton: {
+  routingButton: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -41,7 +39,21 @@ export default StyleSheet.create({
     backgroundColor: "#ff6161",
     padding: 20,
     width: "100%",
-    height: "100%",
+    height: windowHeight / 5,
+    zIndex: 3,
+  },
+  reportButton: {
+    position: "absolute",
+    right: windowWidth / 25,
+    bottom: windowWidth / 1.6,
+    borderRadius: 100,
+    //display: "flex",
+    //flexDirection: "row",
+    //justifyContent: "center",
+    // alignContent: "center",
+    //alignItems: "center",
+    backgroundColor: "#ff8585",
+    padding: 20,
   },
 
   reportButtonText: {
@@ -75,7 +87,7 @@ export default StyleSheet.create({
     display: "flex",
     //height: (windowHeight * 65) / 100,
     height: "100%",
-    // width: windowWidth,
+    width: windowWidth,
   },
 
   modalWindow: {
@@ -104,13 +116,13 @@ export default StyleSheet.create({
   configButton: {
     position: "absolute",
     right: windowWidth / 25,
-    bottom: windowHeight / 5,
+    top: windowHeight / 5,
   },
 
   mapLegendButton: {
     position: "absolute",
     left: windowWidth / 50,
-    top: windowHeight / 8,
+    top: windowHeight / 5,
   },
   exitButton: {
     textAlign: "right",

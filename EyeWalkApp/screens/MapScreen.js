@@ -19,6 +19,7 @@ import { crimeData } from "../components/mapData";
 import { db } from "../firebase/firebaseFunctions";
 import { LocationContext } from "../navigation/LocationContext";
 import { AuthContext } from "../navigation/AuthProvider";
+import DropDownPicker from "react-native-dropdown-picker";
 import firebase from "firebase";
 
 export default function MapScreen(props) {
@@ -29,6 +30,26 @@ export default function MapScreen(props) {
   const { user } = useContext(AuthContext);
   const [displayConfig, setDisplayConfig] = useState(false);
   const [displayLegend, setDisplayLegend] = useState(false);
+  const [destination, setDestination] = useState(null);
+  const [destinationOpen, setDestinationOpen] = useState(false);
+  const [destinationChoices, setDestinationChoices] = useState([
+    {
+      label: "Home",
+      value: "Home",
+      // {
+      //   latitude: 34.0631,
+      //   longitude: -118.448,
+      // },
+    },
+    {
+      label: "UCLA",
+      value: "UCLA",
+      // value: {
+      //   latitude: 34.0631,
+      //   longitude: -118.448,
+      // },
+    },
+  ]);
 
   //switch constants
   const TRACK_FALSE_COLOR = "#767577";
@@ -79,6 +100,10 @@ export default function MapScreen(props) {
 
   const usersLoc = (
     <Marker coordinate={usersLocation.latLng} title="Current Location" />
+  );
+
+  const finalLoc = (
+    <Marker coordinate={{ latitude: 34.0631, longitude: -118.448 }} />
   );
 
   const AddReportConfirmation = () =>
@@ -280,14 +305,17 @@ export default function MapScreen(props) {
       </Modal>
 
       <View>
-        <View style={styles.spacedRow}>
-          <TouchableOpacity
-            style={styles.reportButton}
-            onPress={AddReportConfirmation}
-          >
-            <Text style={styles.reportButtonText}>Report Something!</Text>
-            <Entypo name="warning" size={40} color="#fada39" />
-          </TouchableOpacity>
+        <View style={{ zIndex: 4 }}>
+          <View style={styles.routingButton}>
+            <DropDownPicker
+              open={destinationOpen}
+              value={destination}
+              items={destinationChoices}
+              setOpen={setDestinationOpen}
+              setValue={setDestination}
+              setItems={setDestinationChoices}
+            />
+          </View>
         </View>
         <MapView
           style={styles.map}
@@ -295,6 +323,7 @@ export default function MapScreen(props) {
           initialRegion={regionConfig}
         >
           {usersLoc}
+          {finalLoc}
           {/* Conditionally render information */}
           {displayHazards && displayedHazards}
           {/* {displayLights && lights} */}
@@ -322,17 +351,18 @@ export default function MapScreen(props) {
         >
           <FontAwesome name="question-circle" size={40} color="#0D5371" />
         </TouchableOpacity>
-      </View>
 
-      {/* <View style={styles.spacedRow}>
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => setDisplayConfig((prevVal) => !prevVal)}
+          style={styles.reportButton}
+          onPress={AddReportConfirmation}
         >
-          <Text>Display Map Config Window</Text>
+          <MaterialCommunityIcons
+            name="alarm-light"
+            size={40}
+            color="#bd2222"
+          />
         </TouchableOpacity>
-        
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 }

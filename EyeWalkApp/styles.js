@@ -82,6 +82,27 @@ export default StyleSheet.create({
     margin: 8,
   },
 
+  Button: {
+    alignItems: "center",
+    width: "68%",
+    backgroundColor: themedBlue,
+    padding: 20,
+    borderRadius: 10,
+    margin: 35,
+    top: '-7%'
+  },
+
+  profileButton:{
+    alignItems: "center",
+    width: "-19%",
+    backgroundColor: themedBlue,
+    padding: 20,
+    borderRadius: 10,
+    margin: 10,
+    top: '10%'
+  },
+
+
   rectangle: {
     height: "32%",
     display: "flex",
@@ -151,15 +172,27 @@ export default StyleSheet.create({
   },
 
   input: {
-    width: "50%",
-    borderWidth: 1,
+    width: "70%",
+    borderWidth: 0.5,
     borderColor: "black",
     textAlign: "center",
+    opacity: 50,
+    padding: 7, 
+    borderRadius: 10,
+    margin: 8, 
+    top: '-8%'
   },
 
   inputPrompt: {
-    width: "30%",
+    width: "50%",
+    textAlign: "left", 
+    alignSelf: 'flex-start', 
+    fontSize: 16, 
+    top: '-15%', 
+    fontSize: 16, 
+    fontFamily: "Quicksand_500Medium"
   },
+
   map: {
     display: "flex",
     //height: (windowHeight * 65) / 100,

@@ -50,10 +50,10 @@ export default function UserProfileScreen(props) {
 
       <View style={styles.rectangle}>
         <Image style={styles.profileScreenImage} source={{ uri: profilePic }} />
-        <Text style={{ color: "#ffffff", top: "-44%", fontSize: 35 }}>
+        <Text style={{ color: "#ffffff", top: "-44%", fontSize: 35, fontFamily: "Quicksand_500Medium"}}>
           Profile
         </Text>
-        <Text style={{ color: "#0D5371", top: "45%", fontSize: 30 }}>
+        <Text style={{ color: "#0D5371", top: "45%", fontSize: 30, fontFamily: "Quicksand_500Medium"}}>
           {userName}
         </Text>
       </View>
@@ -62,18 +62,18 @@ export default function UserProfileScreen(props) {
         {displayedContacts}
         <TouchableOpacity
           onPress={attemptToNavigateAddContact}
-          style={styles.homeButton}
+          style={styles.profileButton}
         >
-          <Text>Add An Emergency Contact</Text>
+          <Text style = {{color: 'white', fontSize: 16, fontFamily: "Quicksand_500Medium"}}>Add An Emergency Contact</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate("ProfilePreferences");
           }}
-          style={styles.button}
+          style={styles.profileButton}
         >
-          <Text style={{ color: "#ffffff" }}>Set Profile Preferences</Text>
+          <Text style={{ color: "#ffffff", fontSize: 16, fontFamily: "Quicksand_500Medium"}}>Set Profile Preferences</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

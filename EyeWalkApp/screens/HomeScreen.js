@@ -80,19 +80,53 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style = {{color: '#0D5371', fontSize: 32, textAlign: 'center', top: '-5%', fontFamily: "Quicksand_500Medium"}}>Welcome{"\n"} {userName}</Text>
+      <Text
+        style={{
+          color: "#0D5371",
+          fontSize: 32,
+          textAlign: "center",
+          top: "-5%",
+          fontFamily: "Quicksand_500Medium",
+        }}
+      >
+        Welcome{"\n"} {userName}
+      </Text>
       <Image style={styles.profileImage} source={{ uri: profilePic }} />
 
       <TouchableOpacity onPress={emailConfirmation} style={styles.homeButton}>
-        <Text style = {{color: '#ffffff', fontSize: 16, fontFamily: "Quicksand_500Medium"}}>Send Email To Contacts</Text>
+        <Text
+          style={{
+            color: "#ffffff",
+            fontSize: 16,
+            fontFamily: "Quicksand_500Medium",
+          }}
+        >
+          Send Email To Contacts
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={smsConfirmation} style={styles.homeButton}>
-        <Text style = {{color: '#ffffff', fontSize: 16, fontFamily: "Quicksand_500Medium"}}>Send SMS To Contacts</Text>
+        <Text
+          style={{
+            color: "#ffffff",
+            fontSize: 16,
+            fontFamily: "Quicksand_500Medium",
+          }}
+        >
+          Send SMS To Contacts
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={logoutConfirmation} style={styles.homeButton}>
-        <Text style = {{color: '#ffffff', fontSize: 16, fontFamily: "Quicksand_500Medium"}}>Log Out</Text>
+        <Text
+          style={{
+            color: "#ffffff",
+            fontSize: 16,
+            fontFamily: "Quicksand_500Medium",
+          }}
+        >
+          Log Out
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

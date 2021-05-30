@@ -9,6 +9,7 @@ import MapView, {
 import Entypo from "react-native-vector-icons/Entypo";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { GetRoute, GetDestination } from "./DestinationPolyline";
 import {
   SafeAreaView,
   Text,
@@ -328,6 +329,7 @@ export default function MapScreen(props) {
               open={destinationOpen}
               value={destination}
               items={destinationChoices}
+              placeholder="Select A Destination"
               setOpen={setDestinationOpen}
               setValue={setDestination}
               setItems={setDestinationChoices}
@@ -356,6 +358,8 @@ export default function MapScreen(props) {
           )}
           {displayCrime && crimes}
           {displayGeoSquares && allGeoTiles}
+          {destination && GetRoute(destination)}
+          {destination && GetDestination(destination)}
         </MapView>
         <TouchableOpacity
           style={styles.configButton}
@@ -388,62 +392,6 @@ const regionConfig = {
   latitudeDelta: 0.02,
   longitudeDelta: 0.02,
 };
-
-// const geoTiling = [
-//   {
-//     latitude: 34.0480,
-//     longitude:-118.4472
-//   }
-// ]
-
-// const startingGeoPositions = [
-//   {
-//     latitude: 34.06,
-//     longitude: -118.45,
-//     fillColor: "#f53838",
-//   },
-//   {
-//     latitude: 34.06003,
-//     longitude: -118.45,
-//     fillColor: "#38a3f5",
-//   },
-//   {
-//     latitude: 34.06,
-//     longitude: -118.45003,
-//     fillColor: "#c534fa",
-//   },
-//   {
-//     latitude: 34.06003,
-//     longitude: -118.45003,
-//     fillColor: "#34fa76",
-//   },
-// ];
-// const allGeoTiles = startingGeoPositions.map((tile, index) => {
-//   let geoTiling = [];
-//   for (let i = 0; i < 2; i++)
-//     for (let j = 0; j < 2; j++)
-//       geoTiling.push({
-//         latitude: tile.latitude + 0.003 * i,
-//         longitude: tile.longitude + 0.003 * j,
-//       });
-//   const tempTile = geoTiling[2];
-//   geoTiling[2] = geoTiling[3];
-//   geoTiling[3] = tempTile;
-//   return (
-//     <Polygon coordinates={geoTiling} fillColor={tile.fillColor} key={index} />
-//   );
-// });
-
-// let geoTiling = [];
-// for (let i = 0; i < 2; i++)
-//   for (let j = 0; j < 2; j++)
-//     geoTiling.push({
-//       latitude: 34.06 + 0.003 * i,
-//       longitude: -118.45 + 0.003 * j,
-//     });
-// const tempTile = geoTiling[2];
-// geoTiling[2] = geoTiling[3];
-// geoTiling[3] = tempTile;
 
 const lightData = [
   {

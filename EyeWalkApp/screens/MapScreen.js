@@ -1,6 +1,11 @@
 import React, { useState, useContext } from "react";
 import styles from "../styles.js";
-import MapView, { PROVIDER_GOOGLE, Marker, Heatmap } from "react-native-maps";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Heatmap,
+  Polygon,
+} from "react-native-maps";
 import Entypo from "react-native-vector-icons/Entypo";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -19,7 +24,9 @@ import { crimeData } from "../components/mapData";
 import { db } from "../firebase/firebaseFunctions";
 import { LocationContext } from "../navigation/LocationContext";
 import { AuthContext } from "../navigation/AuthProvider";
+import DropDownPicker from "react-native-dropdown-picker";
 import firebase from "firebase";
+import allGeoTiles from "./GeoTiling";
 
 export default function MapScreen(props) {
   const [displayLights, setDisplayLights] = useState(true);
@@ -29,6 +36,27 @@ export default function MapScreen(props) {
   const { user } = useContext(AuthContext);
   const [displayConfig, setDisplayConfig] = useState(false);
   const [displayLegend, setDisplayLegend] = useState(false);
+  const [displayGeoSquares, setDisplayGeoSquares] = useState(false);
+  const [destination, setDestination] = useState(null);
+  const [destinationOpen, setDestinationOpen] = useState(false);
+  const [destinationChoices, setDestinationChoices] = useState([
+    {
+      label: "Home",
+      value: "Home",
+      // {
+      //   latitude: 34.0631,
+      //   longitude: -118.448,
+      // },
+    },
+    {
+      label: "UCLA",
+      value: "UCLA",
+      // value: {
+      //   latitude: 34.0631,
+      //   longitude: -118.448,
+      // },
+    },
+  ]);
 
   //switch constants
   const TRACK_FALSE_COLOR = "#767577";
@@ -79,6 +107,10 @@ export default function MapScreen(props) {
 
   const usersLoc = (
     <Marker coordinate={usersLocation.latLng} title="Current Location" />
+  );
+
+  const finalLoc = (
+    <Marker coordinate={{ latitude: 34.0631, longitude: -118.448 }} />
   );
 
   const AddReportConfirmation = () =>
@@ -237,6 +269,16 @@ export default function MapScreen(props) {
               value={displayHazards}
             />
           </View>
+          <View style={styles.spacedRow}>
+            <Text style={styles.configText}>Show GeoFencing</Text>
+            <Switch
+              trackColor={{ false: TRACK_FALSE_COLOR, true: TRACK_TRUE_COLOR }} //default colors btw
+              thumbColor={displayHazards ? THUMB_TRUE_COLOR : THUMB_FALSE_COLOR}
+              ios_backgroundColor={BACKGROUND_SWITCH_COLOR}
+              onValueChange={() => setDisplayGeoSquares((prevVal) => !prevVal)}
+              value={displayGeoSquares}
+            />
+          </View>
         </View>
       </Modal>
 
@@ -280,14 +322,17 @@ export default function MapScreen(props) {
       </Modal>
 
       <View>
-        <View style={styles.spacedRow}>
-          <TouchableOpacity
-            style={styles.reportButton}
-            onPress={AddReportConfirmation}
-          >
-            <Text style={styles.reportButtonText}>Report Something!</Text>
-            <Entypo name="warning" size={40} color="#fada39" />
-          </TouchableOpacity>
+        <View style={{ zIndex: 4 }}>
+          <View style={styles.routingButton}>
+            <DropDownPicker
+              open={destinationOpen}
+              value={destination}
+              items={destinationChoices}
+              setOpen={setDestinationOpen}
+              setValue={setDestination}
+              setItems={setDestinationChoices}
+            />
+          </View>
         </View>
         <MapView
           style={styles.map}
@@ -295,6 +340,7 @@ export default function MapScreen(props) {
           initialRegion={regionConfig}
         >
           {usersLoc}
+          {finalLoc}
           {/* Conditionally render information */}
           {displayHazards && displayedHazards}
           {/* {displayLights && lights} */}
@@ -308,6 +354,7 @@ export default function MapScreen(props) {
             />
           )}
           {displayCrime && crimes}
+          {displayGeoSquares && allGeoTiles}
         </MapView>
         <TouchableOpacity
           style={styles.configButton}
@@ -322,17 +369,18 @@ export default function MapScreen(props) {
         >
           <FontAwesome name="question-circle" size={40} color="#0D5371" />
         </TouchableOpacity>
-      </View>
 
-      {/* <View style={styles.spacedRow}>
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => setDisplayConfig((prevVal) => !prevVal)}
+          style={styles.reportButton}
+          onPress={AddReportConfirmation}
         >
-          <Text>Display Map Config Window</Text>
+          <MaterialCommunityIcons
+            name="alarm-light"
+            size={40}
+            color="#bd2222"
+          />
         </TouchableOpacity>
-        
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 }
@@ -343,6 +391,62 @@ const regionConfig = {
   latitudeDelta: 0.02,
   longitudeDelta: 0.02,
 };
+
+// const geoTiling = [
+//   {
+//     latitude: 34.0480,
+//     longitude:-118.4472
+//   }
+// ]
+
+// const startingGeoPositions = [
+//   {
+//     latitude: 34.06,
+//     longitude: -118.45,
+//     fillColor: "#f53838",
+//   },
+//   {
+//     latitude: 34.06003,
+//     longitude: -118.45,
+//     fillColor: "#38a3f5",
+//   },
+//   {
+//     latitude: 34.06,
+//     longitude: -118.45003,
+//     fillColor: "#c534fa",
+//   },
+//   {
+//     latitude: 34.06003,
+//     longitude: -118.45003,
+//     fillColor: "#34fa76",
+//   },
+// ];
+// const allGeoTiles = startingGeoPositions.map((tile, index) => {
+//   let geoTiling = [];
+//   for (let i = 0; i < 2; i++)
+//     for (let j = 0; j < 2; j++)
+//       geoTiling.push({
+//         latitude: tile.latitude + 0.003 * i,
+//         longitude: tile.longitude + 0.003 * j,
+//       });
+//   const tempTile = geoTiling[2];
+//   geoTiling[2] = geoTiling[3];
+//   geoTiling[3] = tempTile;
+//   return (
+//     <Polygon coordinates={geoTiling} fillColor={tile.fillColor} key={index} />
+//   );
+// });
+
+// let geoTiling = [];
+// for (let i = 0; i < 2; i++)
+//   for (let j = 0; j < 2; j++)
+//     geoTiling.push({
+//       latitude: 34.06 + 0.003 * i,
+//       longitude: -118.45 + 0.003 * j,
+//     });
+// const tempTile = geoTiling[2];
+// geoTiling[2] = geoTiling[3];
+// geoTiling[3] = tempTile;
 
 const lightData = [
   {

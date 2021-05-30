@@ -44,11 +44,15 @@ export default StyleSheet.create({
   },
 
   rectangle:{
+    height: "32%",
     display: "flex",
+    flex: 1,
+    alignItems: 'center',
     justifyContent: "flex-end",
     flexDirection: "column",
     backgroundColor: '#0D5371',
-    top: '-10%',
+    top: 0, 
+    position: 'absolute', 
     width:"100%"
   },
 
@@ -77,7 +81,10 @@ export default StyleSheet.create({
   profileScreenImage:{
     height: windowWidth / 3,
     width: windowWidth / 3,
-    top: '-20%'
+    position: 'absolute',
+    bottom: '-25%',
+    justifyContent: "center",
+    alignItems: 'center'
   },
 
   spacedRow: {

@@ -44,12 +44,11 @@ export default function UserProfileScreen(props) {
     
       <View style = {styles.rectangle}>
         <Image style={styles.profileScreenImage} source={{ uri: profilePic }} />
-        <Text style = {{color: '#ffffff', top: '-53%', fontSize: 35}}>Profile</Text>
-        <Text style = {{color: '#0D5371', top: '-25%', fontSize: 30}}>{userName}</Text>
+        <Text style = {{color: '#ffffff', top: '-44%', fontSize: 35}}>Profile</Text>
+        <Text style = {{color: '#0D5371', top: '45%', fontSize: 30}}>{userName}</Text>
       </View>
 
-      
-      <Text style = {{top: '-20%'}}>User Profile Screen</Text>
+      {/*
       <TouchableOpacity
         onPress={attemptToNavigateAddContact}
         style={styles.button}
@@ -68,6 +67,7 @@ export default function UserProfileScreen(props) {
       >
         <Text style = {{color: '#ffffff'}}>Set Profile Preferences</Text>
       </TouchableOpacity>
+      */}
     </SafeAreaView>
   );
 }

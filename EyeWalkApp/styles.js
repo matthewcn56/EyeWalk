@@ -89,19 +89,18 @@ export default StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     margin: 35,
-    top: '-7%'
+    top: "-7%",
   },
 
-  profileButton:{
+  profileButton: {
     alignItems: "center",
     width: "-19%",
     backgroundColor: themedBlue,
     padding: 20,
     borderRadius: 10,
     margin: 10,
-    top: '10%'
+    top: "10%",
   },
-
 
   rectangle: {
     height: "32%",
@@ -114,6 +113,23 @@ export default StyleSheet.create({
     top: 0,
     position: "absolute",
     width: "100%",
+  },
+
+  lowerProfileRectangle: {
+    marginTop: windowHeight / 2.5,
+  },
+
+  profileScroll: {
+    alignItems: "center",
+    flexDirection: "column",
+    flexGrow: 1,
+    width: windowWidth,
+    marginTop: windowHeight / 4,
+  },
+  containerscroll: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    flexDirection: "column",
   },
 
   routingButton: {
@@ -177,20 +193,20 @@ export default StyleSheet.create({
     borderColor: "black",
     textAlign: "center",
     opacity: 50,
-    padding: 7, 
+    padding: 7,
     borderRadius: 10,
-    margin: 8, 
-    top: '-8%'
+    margin: 8,
+    top: "-8%",
   },
 
   inputPrompt: {
     width: "50%",
-    textAlign: "left", 
-    alignSelf: 'flex-start', 
-    fontSize: 16, 
-    top: '-15%', 
-    fontSize: 16, 
-    fontFamily: "Quicksand_500Medium"
+    textAlign: "left",
+    alignSelf: "flex-start",
+    fontSize: 16,
+    top: "-15%",
+    fontSize: 16,
+    fontFamily: "Quicksand_500Medium",
   },
 
   map: {

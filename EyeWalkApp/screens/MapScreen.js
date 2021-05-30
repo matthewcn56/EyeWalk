@@ -374,11 +374,7 @@ export default function MapScreen(props) {
           style={styles.reportButton}
           onPress={AddReportConfirmation}
         >
-          <MaterialCommunityIcons
-            name="alarm-light"
-            size={40}
-            color="#bd2222"
-          />
+          <MaterialCommunityIcons name="alarm-light" size={40} color="white" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

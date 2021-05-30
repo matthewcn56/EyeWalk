@@ -6,11 +6,12 @@ import ProfileStack from "./ProfileStack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Entypo from "react-native-vector-icons/Entypo";
+import styles from "../styles";
 
 export default function HomeStack() {
   const Tab = createMaterialBottomTabNavigator();
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator initialRouteName="Home" barStyle={styles.navbar}>
       <Tab.Screen
         name="Map"
         component={MapStack}

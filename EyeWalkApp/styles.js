@@ -5,6 +5,7 @@ import { Dimensions } from "react-native";
 var scrollheight;
 const themedBlue = "#0D5371";
 
+const bodyFont = "Quicksand_500Medium";
 //TODO: Make dynamic styling using windowWidth, windowHeight!
 
 if (Platform.OS === "ios") {
@@ -23,62 +24,96 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     height: windowHeight,
+    fontFamily: bodyFont,
   },
-  signInText : {
+  navbar: {
+    backgroundColor: themedBlue,
+  },
+  signInText: {
     fontSize: 35,
     fontWeight: "bold",
-    color: "yellow"
+    color: "yellow",
   },
 
-  iconLogo : {
-
+  iconLogo: {
+    height: windowWidth / 1.5,
+    width: windowWidth / 1.5,
+    top: "-8%",
+    resizeMode: "contain",
   },
-
-  button: {
+  googleLogo: {
+    // flex: 1,
+    width: 30,
+    height: 30,
+    resizeMode: "contain",
+  },
+  googleLoginButton: {
+    display: "flex",
+    flexDirection: "row",
     alignItems: "center",
-    width: '67%',
-    backgroundColor: "#0D5371",
+    width: "75%",
+    backgroundColor: "#db4a39",
     padding: 20,
-    borderRadius: 20,
-    margin: 10,
+    borderRadius: 10,
+    margin: 8,
   },
 
-  rectangle:{
+  anonLoginButton: {
+    alignItems: "center",
+    width: "75%",
+    backgroundColor: themedBlue,
+    padding: 20,
+    borderRadius: 10,
+    margin: 8,
+  },
+
+  homeButton: {
+    alignItems: "center",
+    width: "68%",
+    backgroundColor: themedBlue,
+    padding: 20,
+    borderRadius: 10,
+    margin: 8,
+  },
+
+  rectangle: {
     height: "32%",
     display: "flex",
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     justifyContent: "flex-end",
     flexDirection: "column",
-    backgroundColor: '#0D5371',
-    top: 0, 
-    position: 'absolute', 
-    width:"100%"
+    backgroundColor: themedBlue,
+    top: 0,
+    position: "absolute",
+    width: "100%",
   },
 
   routingButton: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    top: windowHeight / 10,
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "#ff6161",
+    backgroundColor: "rgba(196,196,196,0.5)",
+    opacity: 50,
     padding: 20,
     width: "100%",
     height: windowHeight / 5,
-    zIndex: 3,
+    //zIndex: 3,
   },
   reportButton: {
     position: "absolute",
     right: windowWidth / 25,
-    bottom: windowWidth / 1.6,
+    bottom: windowWidth / 2.4,
     borderRadius: 100,
     //display: "flex",
     //flexDirection: "row",
     //justifyContent: "center",
     // alignContent: "center",
     //alignItems: "center",
-    backgroundColor: "#ff8585",
+    backgroundColor: "#CA3E37",
     padding: 20,
   },
 
@@ -89,16 +124,16 @@ export default StyleSheet.create({
   profileImage: {
     height: windowWidth / 4,
     width: windowWidth / 4,
-    top: '-2%'
+    top: "-2%",
   },
 
-  profileScreenImage:{
+  profileScreenImage: {
     height: windowWidth / 3,
     width: windowWidth / 3,
-    position: 'absolute',
-    bottom: '-25%',
+    position: "absolute",
+    bottom: "-25%",
     justifyContent: "center",
-    alignItems: 'center'
+    alignItems: "center",
   },
 
   spacedRow: {
@@ -152,13 +187,13 @@ export default StyleSheet.create({
   configButton: {
     position: "absolute",
     right: windowWidth / 25,
-    top: windowHeight / 5,
+    top: windowHeight / 3.2,
   },
 
   mapLegendButton: {
     position: "absolute",
-    left: windowWidth / 50,
-    top: windowHeight / 5,
+    left: windowWidth / 25,
+    top: windowHeight / 3.2,
   },
   exitButton: {
     textAlign: "right",

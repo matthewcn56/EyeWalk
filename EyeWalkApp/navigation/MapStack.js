@@ -5,6 +5,7 @@ import ReportScreen from "../screens/ReportScreen";
 import { LocationProvider } from "./LocationContext";
 import { LocationContext } from "./LocationContext";
 import { db } from "../firebase/firebaseFunctions";
+import AppLoading from "expo-app-loading";
 
 export default function MapWrapper() {
   return (

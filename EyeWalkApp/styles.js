@@ -30,6 +30,10 @@ export default StyleSheet.create({
     color: "yellow"
   },
 
+  iconLogo : {
+
+  },
+
   button: {
     alignItems: "center",
     width: '67%',
@@ -40,11 +44,12 @@ export default StyleSheet.create({
   },
 
   rectangle:{
-    height: 300, 
-    width: 500,
+    display: "flex",
+    justifyContent: "flex-end",
+    flexDirection: "column",
     backgroundColor: '#0D5371',
     top: '-10%',
-    
+    width:"100%"
   },
 
   reportButton: {

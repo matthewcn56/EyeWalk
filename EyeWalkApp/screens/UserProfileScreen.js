@@ -42,10 +42,12 @@ export default function UserProfileScreen(props) {
     <SafeAreaView style={styles.container}>
       {/* this text is not showing */}
     
-      <View style = {styles.rectangle}></View>
-      <Image style={styles.profileScreenImage} source={{ uri: profilePic }} />
-      <Text style = {{color: '#ffffff', top: '-53%', fontSize: 35}}>Profile</Text>
-      <Text style = {{color: '#0D5371', top: '-25%', fontSize: 30}}>{userName}</Text>
+      <View style = {styles.rectangle}>
+        <Image style={styles.profileScreenImage} source={{ uri: profilePic }} />
+        <Text style = {{color: '#ffffff', top: '-53%', fontSize: 35}}>Profile</Text>
+        <Text style = {{color: '#0D5371', top: '-25%', fontSize: 30}}>{userName}</Text>
+      </View>
+
       
       <Text style = {{top: '-20%'}}>User Profile Screen</Text>
       <TouchableOpacity

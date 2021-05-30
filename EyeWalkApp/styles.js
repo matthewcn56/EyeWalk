@@ -5,6 +5,8 @@ import { Dimensions } from "react-native";
 var scrollheight;
 const themedBlue = "#0D5371";
 
+const bodyFont = "Quicksand_500Medium";
+
 //TODO: Make dynamic styling using windowWidth, windowHeight!
 
 if (Platform.OS === "ios") {
@@ -23,37 +25,36 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     height: windowHeight,
+    fontFamily: bodyFont,
   },
-  signInText : {
+  signInText: {
     fontSize: 35,
     fontWeight: "bold",
-    color: "yellow"
+    color: "yellow",
   },
 
-  iconLogo : {
-
-  },
+  iconLogo: {},
 
   button: {
     alignItems: "center",
-    width: '67%',
+    width: "67%",
     backgroundColor: "#0D5371",
     padding: 20,
     borderRadius: 20,
     margin: 10,
   },
 
-  rectangle:{
+  rectangle: {
     height: "32%",
     display: "flex",
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     justifyContent: "flex-end",
     flexDirection: "column",
-    backgroundColor: '#0D5371',
-    top: 0, 
-    position: 'absolute', 
-    width:"100%"
+    backgroundColor: "#0D5371",
+    top: 0,
+    position: "absolute",
+    width: "100%",
   },
 
   routingButton: {
@@ -89,16 +90,16 @@ export default StyleSheet.create({
   profileImage: {
     height: windowWidth / 4,
     width: windowWidth / 4,
-    top: '-2%'
+    top: "-2%",
   },
 
-  profileScreenImage:{
+  profileScreenImage: {
     height: windowWidth / 3,
     width: windowWidth / 3,
-    position: 'absolute',
-    bottom: '-25%',
+    position: "absolute",
+    bottom: "-25%",
     justifyContent: "center",
-    alignItems: 'center'
+    alignItems: "center",
   },
 
   spacedRow: {

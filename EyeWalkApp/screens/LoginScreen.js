@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-native";
 import { AuthContext } from "../navigation/AuthProvider.js";
+import { Quicksand_500Medium } from "@expo-google-fonts/quicksand";
 
 export default function LoginScreen() {
   const { login, anonymousLogin } = useContext(AuthContext);
@@ -35,7 +36,11 @@ export default function LoginScreen() {
       />
       {/* Add in a style into your text here! Here's an example*/}
       {/* <Text style = {styles.yourStyle}></Text> */}
-      <Text style={{ fontSize: 36, top: "-5%" }}>EyeWalk</Text>
+      <Text
+        style={{ fontSize: 36, top: "-5%", fontFamily: "Quicksand_500Medium" }}
+      >
+        EyeWalk
+      </Text>
       <TouchableOpacity
         onPress={() => login()}
         style={styles.googleLoginButton}
@@ -44,7 +49,13 @@ export default function LoginScreen() {
           style={styles.googleLogo}
           source={require("../assets/Google-login.png")}
         />
-        <Text style={{ color: "#ffffff", fontSize: 18 }}>
+        <Text
+          style={{
+            color: "#ffffff",
+            fontSize: 18,
+            fontFamily: "Quicksand_500Medium",
+          }}
+        >
           Sign In With Google
         </Text>
       </TouchableOpacity>
@@ -54,7 +65,13 @@ export default function LoginScreen() {
         onPress={anonymousLoginConfirmation}
         style={styles.anonLoginButton}
       >
-        <Text style={{ color: "#ffffff", fontSize: 18 }}>
+        <Text
+          style={{
+            color: "#ffffff",
+            fontSize: 18,
+            fontFamily: "Quicksand_500Medium",
+          }}
+        >
           Sign In Anonymously
         </Text>
       </TouchableOpacity>

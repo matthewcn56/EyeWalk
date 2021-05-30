@@ -51,20 +51,26 @@ export default StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    width: "75%",
+    width: "80%",
     backgroundColor: "#db4a39",
-    padding: 20,
+    padding: 18,
     borderRadius: 10,
     margin: 8,
   },
 
   anonLoginButton: {
     alignItems: "center",
-    width: "75%",
+    width: "80%",
     backgroundColor: themedBlue,
-    padding: 20,
+    padding: 18,
     borderRadius: 10,
     margin: 8,
+  },
+  iconLogo: {
+    height: windowWidth / 1.5,
+    width: windowWidth / 1.5,
+    top: "-8%",
+    resizeMode: "contain",
   },
 
   homeButton: {

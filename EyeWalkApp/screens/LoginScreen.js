@@ -52,7 +52,7 @@ export default function LoginScreen() {
         <Text
           style={{
             color: "#ffffff",
-            fontSize: 18,
+            fontSize: 16,
             fontFamily: "Quicksand_500Medium",
           }}
         >
@@ -68,7 +68,7 @@ export default function LoginScreen() {
         <Text
           style={{
             color: "#ffffff",
-            fontSize: 18,
+            fontSize: 16,
             fontFamily: "Quicksand_500Medium",
           }}
         >

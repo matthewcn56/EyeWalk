@@ -55,22 +55,26 @@ export default function AddContactScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.spacedRow}>
-        <Text style={styles.inputPrompt}> Name Of Contact: </Text>
+        <Text style={styles.inputPrompt}>Name Of Contact: </Text>
+      </View>
+      <View style = {styles.input}>
         <TextInput
           autoCorrect={false}
           autoCapitalize="none"
-          style={styles.input}
+          //style={styles.input}
           onChangeText={(name) => setNameToAdd(name)}
           value={nameToAdd}
         />
-      </View>
+        </View>
 
       <View style={styles.spacedRow}>
         <Text style={styles.inputPrompt}> Email: </Text>
+      </View>
+      <View style = {styles.input}>
         <TextInput
           autoCorrect={false}
           autoCapitalize="none"
-          style={styles.input}
+          //style={styles.input}
           onChangeText={(email) => setEmailToAdd(email)}
           value={emailToAdd}
         />
@@ -78,17 +82,20 @@ export default function AddContactScreen(props) {
 
       <View style={styles.spacedRow}>
         <Text style={styles.inputPrompt}> Phone Number: </Text>
+      </View>
+      <View style = {styles.input}>
         <TextInput
           autoCorrect={false}
           autoCapitalize="none"
-          style={styles.input}
+          //style={styles.input}
           onChangeText={(phone) => setPhoneToAdd(phone)}
           value={phoneToAdd}
         />
       </View>
 
-      <TouchableOpacity onPress={verifyContact} style={styles.button}>
-        <Text>Add Contact To Your List</Text>
+      <TouchableOpacity onPress={verifyContact} style={styles.Button}>
+        
+        <Text style = {{color: '#ffffff', fontSize: 16, fontFamily: "Quicksand_500Medium"}}>Add Contact To Your List</Text>
       </TouchableOpacity>
     </View>
   );

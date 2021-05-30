@@ -5,7 +5,7 @@ const startingGeoPositions = [
   {
     latitude: 34.06,
     longitude: -118.45,
-    fillColor: "rgba(255, 0, 0, 0.5)",
+    fillColor: "rgba(254, 0, 0, 0.5)",
   },
   {
     latitude: 34.063,

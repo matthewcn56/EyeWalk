@@ -332,6 +332,7 @@ export default function MapScreen(props) {
               setValue={setDestination}
               setItems={setDestinationChoices}
             />
+            {/* {destination && <Text>Next</Text>} */}
           </View>
         </View>
         <MapView

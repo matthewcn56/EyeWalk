@@ -13,6 +13,12 @@ import {
   Quicksand_700Bold,
 } from "@expo-google-fonts/quicksand";
 
+import {
+  Oxygen_300Light,
+  Oxygen_400Regular,
+  Oxygen_700Bold,
+} from "@expo-google-fonts/oxygen";
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     Quicksand_300Light,
@@ -20,6 +26,9 @@ export default function App() {
     Quicksand_500Medium,
     Quicksand_600SemiBold,
     Quicksand_700Bold,
+    Oxygen_300Light,
+    Oxygen_400Regular,
+    Oxygen_700Bold,
   });
   if (!fontsLoaded) {
     return <ActivityIndicator />;

@@ -18,16 +18,42 @@ const windowHeight = Dimensions.get("window").height;
 
 export default StyleSheet.create({
   container: {
+    display: "flex",
+    justifyContent: "center",
     backgroundColor: "#fff",
     alignItems: "center",
     height: windowHeight,
   },
+  signInText : {
+    fontSize: 35,
+    fontWeight: "bold",
+    color: "yellow"
+  },
+
+  iconLogo : {
+
+  },
+
   button: {
     alignItems: "center",
-    backgroundColor: "#b3d0ff",
+    width: '67%',
+    backgroundColor: "#0D5371",
     padding: 20,
     borderRadius: 20,
-    margin: 15,
+    margin: 10,
+  },
+
+  rectangle:{
+    height: "32%",
+    display: "flex",
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    backgroundColor: '#0D5371',
+    top: 0, 
+    position: 'absolute', 
+    width:"100%"
   },
 
   routingButton: {
@@ -61,8 +87,18 @@ export default StyleSheet.create({
   },
 
   profileImage: {
-    height: windowWidth / 6,
-    width: windowWidth / 6,
+    height: windowWidth / 4,
+    width: windowWidth / 4,
+    top: '-2%'
+  },
+
+  profileScreenImage:{
+    height: windowWidth / 3,
+    width: windowWidth / 3,
+    position: 'absolute',
+    bottom: '-25%',
+    justifyContent: "center",
+    alignItems: 'center'
   },
 
   spacedRow: {

@@ -103,7 +103,7 @@ export default StyleSheet.create({
 
   configWindow: {
     position: "absolute",
-    bottom: windowHeight / 6,
+    top: windowHeight / 3,
     right: 0,
   },
 

@@ -17,6 +17,7 @@ export default function NavigationStack() {
   //handle user state changes for regular sign-in
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(function (user) {
+      //todo: call this function when wrote to db as well!
       //set user to null if not signed in
       if (!user) setUser(user);
       //set user's info to info stored inside database if signed in
@@ -26,15 +27,20 @@ export default function NavigationStack() {
           .get()
           .then((doc) => {
             if (doc.exists) {
+              // console.log("The data is ") + doc.data();
               setUser(doc.data());
+              let anonValue = false;
+              if (doc.data().displayName === "Anonymous User") anonValue = true;
+              console.log("anon value is " + anonValue);
+              setIsAnonymous(anonValue);
             } else {
               console.log("No user data");
             }
           })
           .then(() => {
-            setIsAnonymous(
-              user.displayName === "Anonymous User" ? true : false
-            );
+            // setIsAnonymous(
+            //   user.displayName === "Anonymous User" ? true : false
+            // );
           });
       }
 

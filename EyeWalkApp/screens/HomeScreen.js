@@ -80,19 +80,19 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Welcome {userName}</Text>
+      <Text style = {{color: '#0D5371', fontSize: 30, textAlign: 'center', top: '-5%'}}>Welcome{"\n"} {userName}</Text>
       <Image style={styles.profileImage} source={{ uri: profilePic }} />
 
       <TouchableOpacity onPress={emailConfirmation} style={styles.button}>
-        <Text>Send Email To Contacts</Text>
+        <Text style = {{color: '#ffffff'}}>Send Email To Contacts</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={smsConfirmation} style={styles.button}>
-        <Text>Send SMS To Contacts</Text>
+        <Text style = {{color: '#ffffff'}}>Send SMS To Contacts</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={logoutConfirmation} style={styles.button}>
-        <Text>Log Out</Text>
+        <Text style = {{color: '#ffffff'}}>Log Out</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

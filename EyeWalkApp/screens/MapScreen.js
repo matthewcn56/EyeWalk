@@ -66,18 +66,6 @@ export default function MapScreen(props) {
   const THUMB_FALSE_COLOR = "#f4f3f4";
   const BACKGROUND_SWITCH_COLOR = "#3e3e3e";
 
-  //map from api call
-  const lights = lightData.map((marker, index) => (
-    <Marker
-      key={index}
-      coordinate={marker.latLng}
-      title={marker.title}
-      description={marker.description}
-    >
-      <Entypo name="warning" size={40} color="#fada39" />
-    </Marker>
-  ));
-
   //map from database
 
   const displayedHazards = hazardsList.map((marker, index) => (
@@ -99,7 +87,7 @@ export default function MapScreen(props) {
         latitude: entry.latitude,
         longitude: entry.longitude,
       }}
-      title={entry["Crm Cd Desc"].replace(/\s\s+/g, " ")}
+      title={entry["Crm_Cd_Desc"].replace(/\s\s+/g, " ")}
       description={entry["LOCATION"].replace(/\s\s+/g, " ")}
     >
       <MaterialCommunityIcons name="handcuffs" size={40} />
@@ -387,66 +375,11 @@ export default function MapScreen(props) {
 }
 
 const regionConfig = {
-  latitude: 34.0689,
-  longitude: -118.4452,
+  latitude: 34.0634,
+  longitude: -118.446,
   latitudeDelta: 0.02,
   longitudeDelta: 0.02,
 };
-
-const lightData = [
-  {
-    latLng: {
-      latitude: 34.067,
-      longitude: -118.45,
-    },
-    title: "Unsafe Intersection",
-    description: "Low Visibility!",
-  },
-  {
-    latLng: {
-      latitude: 34.067,
-      longitude: -118.447,
-    },
-    title: "Unsafe Intersection",
-    description: "No Light Fixings!",
-  },
-  {
-    latLng: {
-      latitude: 34.061,
-      longitude: -118.45,
-    },
-    title: "Unsafe Intersection",
-    description: "No Light Fixings!",
-  },
-  {
-    latLng: {
-      latitude: 34.073,
-      longitude: -118.44,
-    },
-    title: "Unsafe Intersection",
-    description: "No Light Fixings!",
-  },
-];
-
-// const crimeData = [
-//   {
-//     latLng: {
-//       latitude: 34.069,
-//       longitude: -118.45,
-//     },
-//     title: "Crime History",
-//     description: "Pauley Pavillion",
-//   },
-
-//   {
-//     latLng: {
-//       latitude: 34.067,
-//       longitude: -118.442,
-//     },
-//     title: "Crime History",
-//     description: "Anderson Street!",
-//   },
-// ];
 
 const lightGradientConfig =
   Platform.OS === "ios"

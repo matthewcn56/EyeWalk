@@ -75,7 +75,7 @@ export default StyleSheet.create({
 
   homeButton: {
     alignItems: "center",
-    width: "68%",
+    width: "75%",
     backgroundColor: themedBlue,
     padding: 20,
     borderRadius: 10,

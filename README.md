@@ -18,4 +18,20 @@ After analyzing our survey results of what users wanted for a pedestrian survey 
 
 EyeWalk is our full-stack mobile application built to be a proactive solution to feeling unsafe while walking in urban cities.
 
-## EyeWalk
+## EyeWalk In Action
+
+### Signing In Via Google Or Anonymously
+
+![signIn](./pictures/signInScreen.PNG)
+
+### Viewing The Map And Routing
+
+![map](./pictures/mapScreen.PNG)
+
+### Home Screen To Notify Contacts
+
+![home](./pictures/homeScreen.PNG)
+
+### Profile Screen
+
+![profileScreen](./pictures/profileScreen.PNG)

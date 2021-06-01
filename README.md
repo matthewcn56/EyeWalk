@@ -14,7 +14,7 @@ After analyzing our survey results of what users wanted for a pedestrian survey 
 
 ## Our Solution
 
-![EyeWalkTechStack](./pictures/EyeWalkTechStack.PNG)
+![EyeWalkTechStack](./pictures/EyeWalkTechStack.png)
 
 EyeWalk is our full-stack mobile application built to be a proactive solution to feeling unsafe while walking in urban cities.
 
